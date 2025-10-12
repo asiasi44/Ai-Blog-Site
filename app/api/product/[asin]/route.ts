@@ -1,6 +1,5 @@
 // app/api/product/[asin]/route.ts
-
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import clientPromise from "@/lib/db";
 
 type RawUserSegment = {
@@ -27,12 +26,10 @@ type FeatureScore = {
   confidence: number;
 };
 
-export async function GET({
-  params,
-}: {
-  params: { asin: string };
-}) {
-  const { asin } = params;
+export async function GET(req: NextRequest) {
+  // Extract params using Next.js new way
+  const { searchParams } = new URL(req.url);
+  const asin = req.nextUrl.pathname.split("/").pop() || "";
 
   try {
     const client = await clientPromise;
