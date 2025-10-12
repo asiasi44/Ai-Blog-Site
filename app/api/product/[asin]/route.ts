@@ -27,8 +27,12 @@ type FeatureScore = {
   confidence: number;
 };
 
-export async function GET(req: Request, context: { params: { asin: string } }) {
-  const { asin } = context.params;
+export async function GET({
+  params,
+}: {
+  params: { asin: string };
+}) {
+  const { asin } = params;
 
   try {
     const client = await clientPromise;
