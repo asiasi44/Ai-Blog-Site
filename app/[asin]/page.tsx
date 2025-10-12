@@ -1,4 +1,3 @@
-//@ts-ignore
 "use client";
 import React, { useState } from "react";
 import { CheckCircle, XCircle } from "lucide-react";

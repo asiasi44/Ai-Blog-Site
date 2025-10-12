@@ -1,4 +1,3 @@
-//@ts-ignore
 // app/api/product/[asin]/route.ts
 
 import { NextResponse, NextRequest } from "next/server";
