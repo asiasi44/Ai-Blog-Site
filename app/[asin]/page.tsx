@@ -5,6 +5,7 @@ import { renderStars, getConfidenceLevel } from "./ReviewUtility";
 import { useParams } from "next/navigation";
 import { useBlogByAsin } from "@/lib/hooks/useBlog";
 import { ExpandableText } from "./ExpandableText";
+import Image from "next/image";
 import {
   Battery,
   Zap,
@@ -288,7 +289,7 @@ export default function ProductReviewBlog() {
             Who This Is For
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
-            {productData.userSegments.map((segment: Segment) => (
+            {productData.userSegments.map((segment: UserSegment) => (
               <div
                 key={segment.segment}
                 className="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
