@@ -1,6 +1,6 @@
 // app/api/product/[asin]/route.ts
 
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import clientPromise from "@/lib/db";
 
 type RawUserSegment = {
@@ -27,11 +27,8 @@ type FeatureScore = {
   confidence: number;
 };
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { asin: string } }
-) {
-  const asin = params.asin;
+export async function GET(req: Request, context: { params: { asin: string } }) {
+  const { asin } = context.params;
 
   try {
     const client = await clientPromise;
@@ -69,7 +66,6 @@ export async function GET(
     if (!analysis_data)
       return NextResponse.json({ error: "Analysis not found" });
 
-    // Feature scores
     const featureScores: FeatureScore[] = Object.entries(
       analysis_data.feature_scores || {}
     ).map(([key, value]) => {
@@ -84,7 +80,6 @@ export async function GET(
       };
     });
 
-    // User segments
     const userSegments: UserSegment[] = Object.entries(
       analysis_data.user_segments || {}
     ).map(([key, value]) => {
