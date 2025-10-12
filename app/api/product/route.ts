@@ -26,7 +26,7 @@ export async function GET() {
       .toArray();
 
     return NextResponse.json({ analyzedProducts });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error(error);
     return NextResponse.json(
       { error: "Internal server error" },

@@ -3,6 +3,30 @@
 import { NextResponse, NextRequest } from "next/server";
 import clientPromise from "@/lib/db";
 
+type RawUserSegment = {
+  satisfaction: number;
+  percentage: number;
+};
+
+type UserSegment = {
+  segment: string;
+  satisfaction: number;
+  percentage: number;
+};
+
+type RawFeatureScore = {
+  score: number;
+  mentions: number;
+  confidence: number;
+};
+
+type FeatureScore = {
+  name: string;
+  score: number;
+  mentions: number;
+  confidence: number;
+};
+
 export async function GET(
   req: NextRequest,
   { params }: { params: { asin: string } }
@@ -45,12 +69,35 @@ export async function GET(
     if (!analysis_data)
       return NextResponse.json({ error: "Analysis not found" });
 
-    type FeatureScore = {
-      name: string;
-      score: number;
-      mentions: number;
-      confidence: number;
-    };
+    // Feature scores
+    const featureScores: FeatureScore[] = Object.entries(
+      analysis_data.feature_scores || {}
+    ).map(([key, value]) => {
+      const feature = value as RawFeatureScore;
+      return {
+        name: key
+          .replace("_", " ")
+          .replace(/\b\w/g, (c) => c.toUpperCase()),
+        score: feature.score || 0,
+        mentions: feature.mentions || 0,
+        confidence: feature.confidence || 0,
+      };
+    });
+
+    // User segments
+    const userSegments: UserSegment[] = Object.entries(
+      analysis_data.user_segments || {}
+    ).map(([key, value]) => {
+      const segment = value as RawUserSegment;
+      return {
+        segment: key
+          .replace("_", " ")
+          .replace(/\b\w/g, (c) => c.toUpperCase()),
+        satisfaction: segment.satisfaction || 0,
+        percentage: segment.percentage || 0,
+      };
+    });
+
     const response = {
       asin,
       title: product.title || "",
@@ -61,20 +108,7 @@ export async function GET(
       confidenceScore: analysis_data.confidence_score || 0,
       specs: analysis_data.specifications || {},
       sentimentDistribution: analysis_data.sentiment_distribution || {},
-      featureScores: Object.entries(analysis_data.feature_scores || {}).map(
-        ([key, value]) => {
-          const feature = value as FeatureScore;
-
-          return {
-            name: key
-              .replace("_", " ")
-              .replace(/\b\w/g, (c) => c.toUpperCase()),
-            score: feature.score || 0,
-            mentions: feature.mentions || 0,
-            confidence: feature.confidence || 0,
-          };
-        }
-      ),
+      featureScores,
       commonIssues: analysis_data.common_issues || [],
       pros: analysis_data.gemini_output?.pros || [],
       cons: analysis_data.gemini_output?.cons || [],
@@ -82,15 +116,7 @@ export async function GET(
       bestFor: analysis_data.gemini_output?.best_for || "",
       notIdealFor: analysis_data.gemini_output?.not_ideal_for || "",
       blogTitle: analysis_data.gemini_output?.title || "",
-      userSegments: Object.entries(analysis_data.user_segments || {}).map(
-        ([k, v]: any) => ({
-          segment: k
-            .replace("_", " ")
-            .replace(/\b\w/g, (c: string) => c.toUpperCase()),
-          satisfaction: v.satisfaction || 0,
-          percentage: v.percentage || 0,
-        })
-      ),
+      userSegments,
     };
 
     return NextResponse.json({ asin, data: response });
