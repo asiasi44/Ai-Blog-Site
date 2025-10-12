@@ -16,11 +16,8 @@ import { useAnalysisByAsin } from "@/lib/hooks/useAnalysis";
 import { toast } from "react-toastify";
 
 export const AnalysisDetailsModal = ({ currentAsin, onClose }) => {
-  const {
-    data: analyzedDataByAsin = {},
-    isLoading: isAnalyzedDataByAsinLoading,
-    isError: isAnalyzedDataByAsinError,
-  } = useAnalysisByAsin(currentAsin);
+  const { data: analyzedDataByAsin = {}, isError: isAnalyzedDataByAsinError } =
+    useAnalysisByAsin(currentAsin);
 
   const analysis = analyzedDataByAsin.data;
 

@@ -13,8 +13,6 @@ import { useProductByAsin } from "@/lib/hooks/useProducts";
 export const ReviewsModal = ({ currentAsin, setCurrentAsin }) => {
   const {
     data: productByAsin = {},
-    isLoading: productByAsinIsLoading,
-    isError: productByAsinIsError,
   } = useProductByAsin(currentAsin);
 
   return (

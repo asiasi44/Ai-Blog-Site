@@ -1,4 +1,6 @@
+//@ts-ignore
 // app/api/product/[asin]/route.ts
+
 import { NextResponse, NextRequest } from "next/server";
 import clientPromise from "@/lib/db";
 
@@ -44,6 +46,12 @@ export async function GET(
     if (!analysis_data)
       return NextResponse.json({ error: "Analysis not found" });
 
+    type FeatureScore = {
+      name: string;
+      score: number;
+      mentions: number;
+      confidence: number;
+    };
     const response = {
       asin,
       title: product.title || "",
@@ -55,14 +63,18 @@ export async function GET(
       specs: analysis_data.specifications || {},
       sentimentDistribution: analysis_data.sentiment_distribution || {},
       featureScores: Object.entries(analysis_data.feature_scores || {}).map(
-        ([key, value]: any) => ({
-          name: key
-            .replace("_", " ")
-            .replace(/\b\w/g, (c: string) => c.toUpperCase()),
-          score: value.score || 0,
-          mentions: value.mentions || 0,
-          confidence: value.confidence || 0,
-        })
+        ([key, value]) => {
+          const feature = value as FeatureScore;
+
+          return {
+            name: key
+              .replace("_", " ")
+              .replace(/\b\w/g, (c) => c.toUpperCase()),
+            score: feature.score || 0,
+            mentions: feature.mentions || 0,
+            confidence: feature.confidence || 0,
+          };
+        }
       ),
       commonIssues: analysis_data.common_issues || [],
       pros: analysis_data.gemini_output?.pros || [],

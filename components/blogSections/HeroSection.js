@@ -1,8 +1,7 @@
-import React from "react";
 import { Star } from "lucide-react";
 import AmazonButton from "../common/AmazonButton";
 import { getConfidenceLevel } from "../../lib/utils";
-
+import Image from "next/image";
 // The main hero section of the product page.
 const HeroSection = ({ productData }) => {
   const confidenceInfo = getConfidenceLevel(productData.confidenceScore);
@@ -56,7 +55,7 @@ const HeroSection = ({ productData }) => {
           </div>
           <div className="relative">
             <div className="relative z-10 bg-white rounded-2xl shadow-2xl p-4 transform rotate-3 hover:rotate-0 transition-transform duration-300">
-              <img
+              <Image
                 src={productData.image}
                 alt={productData.title}
                 className="w-full h-auto rounded-lg"

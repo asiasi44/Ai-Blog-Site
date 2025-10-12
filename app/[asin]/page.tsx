@@ -1,3 +1,4 @@
+//@ts-ignore
 "use client";
 import React, { useState } from "react";
 import { CheckCircle, XCircle } from "lucide-react";
@@ -16,7 +17,6 @@ import {
   Circle,
   DollarSign,
 } from "lucide-react";
-import { Segment } from "next/dist/server/app-render/types";
 
 type UserSegment = {
   segment: string;
@@ -78,7 +78,7 @@ export default function ProductReviewBlog() {
 
         {/* Hero Image */}
         <div className="mb-8 flex justify-center">
-          <img
+          <Image
             src={productData.image}
             alt={productData.title}
             className="w-1/3 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg object-contain rounded-lg shadow-sm bg-gray-50"
