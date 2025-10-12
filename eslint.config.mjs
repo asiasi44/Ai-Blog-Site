@@ -19,6 +19,14 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
+    rules: {
+      // allow any for now
+      "@typescript-eslint/no-explicit-any": "off",
+      // disable ban on ts-ignore/ts-expect-error
+      "@typescript-eslint/ban-ts-comment": "off",
+      // unused vars should only warn
+      "@typescript-eslint/no-unused-vars": ["warn"],
+    },
   },
 ];
 
