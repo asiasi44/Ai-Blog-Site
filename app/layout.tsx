@@ -24,14 +24,6 @@ export const metadata: Metadata = {
       "AI-powered product reviews and insights. Make better buying decisions with data, not hype.",
     url: "https://asimreviews.netlify.app/",
     siteName: "Asim Reviews",
-    images: [
-      {
-        url: "/myphoto.png", // upload one later
-        width: 1200,
-        height: 630,
-        alt: "Asim Reviews - AI Product Analysis",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
