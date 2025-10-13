@@ -28,7 +28,6 @@ type FeatureScore = {
 
 export async function GET(req: NextRequest) {
   // Extract params using Next.js new way
-  const { searchParams } = new URL(req.url);
   const asin = req.nextUrl.pathname.split("/").pop() || "";
 
   try {
