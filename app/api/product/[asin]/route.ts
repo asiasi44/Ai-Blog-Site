@@ -72,9 +72,7 @@ export async function GET(req: NextRequest) {
     ).map(([key, value]) => {
       const feature = value as RawFeatureScore;
       return {
-        name: key
-          .replace("_", " ")
-          .replace(/\b\w/g, (c) => c.toUpperCase()),
+        name: key.replace("_", " ").replace(/\b\w/g, (c) => c.toUpperCase()),
         score: feature.score || 0,
         mentions: feature.mentions || 0,
         confidence: feature.confidence || 0,
@@ -86,9 +84,7 @@ export async function GET(req: NextRequest) {
     ).map(([key, value]) => {
       const segment = value as RawUserSegment;
       return {
-        segment: key
-          .replace("_", " ")
-          .replace(/\b\w/g, (c) => c.toUpperCase()),
+        segment: key.replace("_", " ").replace(/\b\w/g, (c) => c.toUpperCase()),
         satisfaction: segment.satisfaction || 0,
         percentage: segment.percentage || 0,
       };
