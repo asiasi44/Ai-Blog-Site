@@ -13,6 +13,7 @@ import {
   Shield,
   Circle,
   DollarSign,
+  ExternalLink,
 } from "lucide-react";
 
 type UserSegment = {
@@ -49,6 +50,8 @@ export default function ProductReviewBlog({
 
   if (!productData) return <p>No product data available.</p>;
 
+  const amazonLink = `https://www.amazon.com/dp/${productData.asin}?&tag=asim2002-20&ref_=as_li_ss_tl`;
+
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto p-6">
@@ -76,12 +79,26 @@ export default function ProductReviewBlog({
         {/* Hero Image */}
         <div className="mb-8 flex justify-center">
           <Image
-          width={400}
-          height={300}
+            width={400}
+            height={300}
             src={productData.image}
             alt={productData.title}
             className="w-1/3 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg object-contain rounded-lg shadow-sm bg-gray-50"
           />
+        </div>
+
+        {/* Check Price Button - Prominent CTA */}
+        <div className="mb-8 flex justify-center">
+          <a
+            href={amazonLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+          >
+            <DollarSign size={24} />
+            Check Price on Amazon
+            <ExternalLink size={20} />
+          </a>
         </div>
 
         {/* Quick Verdict */}
@@ -307,6 +324,28 @@ export default function ProductReviewBlog({
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Bottom CTA */}
+        <section className="mt-12 p-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border-2 border-blue-100">
+          <div className="text-center">
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">
+              Ready to Purchase?
+            </h3>
+            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+              Check the current price and availability on Amazon
+            </p>
+            <a
+              href={amazonLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            >
+              <DollarSign size={24} />
+              Check Price on Amazon
+              <ExternalLink size={20} />
+            </a>
           </div>
         </section>
       </div>

@@ -25,5 +25,5 @@ export default async function ProductPage({ params }: Props) {
 
 export async function generateStaticParams() {
   const products = await fetchProducts();
-  return products.slice(0, 100).map(p => ({ asin: p.asin }));
+  return products.slice(0, 100).map((p) => ({ asin: p.asin }));
 }

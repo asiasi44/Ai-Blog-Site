@@ -7,4 +7,5 @@ export type Product = {
   title: string;
   avg_rating: number;
   gemini_output: GeminiOutput;
+  image: string;
 };

@@ -8,16 +8,26 @@ export async function fetchProducts(): Promise<Product[]> {
     .collection("analysis")
     .find(
       {},
-      { projection: { _id: 0, asin: 1, avg_rating: 1, title: 1, gemini_output: 1 } }
+      {
+        projection: {
+          _id: 0,
+          asin: 1,
+          avg_rating: 1,
+          title: 1,
+          gemini_output: 1,
+          image: 1,
+        },
+      }
     )
     .toArray();
 
   // Map to Product[]
-  const products: Product[] = rawProducts.map(p => ({
+  const products: Product[] = rawProducts.map((p) => ({
     asin: p.asin,
     title: p.title,
     avg_rating: p.avg_rating,
     gemini_output: p.gemini_output,
+    image: p.image,
   }));
 
   return products;
