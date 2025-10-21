@@ -58,7 +58,7 @@ const HeroSection = ({ productData }) => {
               <Image
                 src={productData.image}
                 alt={productData.title}
-                className="w-full h-auto rounded-lg"
+                className="w-full h-auto rounded-lg object-contain"
               />
               <div className="mt-4 text-center">
                 <AmazonButton

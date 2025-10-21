@@ -114,6 +114,7 @@ export default function ProductList({ products }: { products: Product[] }) {
                   src={product.image}
                   width={200}
                   height={200}
+                  fetchPriority="high"
                   alt={product.gemini_output?.title ?? product.title}
                   className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
                 />

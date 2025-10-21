@@ -15,6 +15,7 @@ import {
   DollarSign,
   ExternalLink,
 } from "lucide-react";
+import Script from "next/script";
 
 type UserSegment = {
   segment: string;
@@ -54,6 +55,19 @@ export default function ProductReviewBlog({
 
   return (
     <div className="min-h-screen bg-white">
+      <Script id="product-schema" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org/",
+          "@type": "Product",
+          name: productData.title,
+          description: productData.gemini_output?.summary,
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: productData.avg_rating,
+            reviewCount: productData.total_reviews ?? 100,
+          },
+        })}
+      </Script>
       <div className="max-w-4xl mx-auto p-6">
         {/* Header */}
         <header className="mb-8">

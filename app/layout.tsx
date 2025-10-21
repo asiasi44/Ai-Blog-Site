@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,6 +18,9 @@ export const metadata: Metadata = {
   title: "Asim Reviews - Honest Product Reviews & Smart Recommendations",
   description:
     "Discover in-depth, data-driven product reviews powered by AI. Explore gadgets, headphones, home essentials, and more — with insights that help you buy smarter.",
+  other: {
+    "google-site-verification": "9zDDfoatluQ3iL_aPxJdc3vQLIDp0QNNP1V86YUmdZQ",
+  },
   keywords:
     "product reviews, amazon affiliate, best gadgets 2025, honest reviews, AI review analysis",
   openGraph: {
@@ -40,6 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleAnalytics gaId="G-Y7BM9SJFY9"/>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
