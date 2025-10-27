@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Asim Reviews - Honest Product Reviews & Smart Recommendations",
     description:
       "AI-powered product reviews and insights. Make better buying decisions with data, not hype.",
-    url: "https://asimreviews.netlify.app/",
+    url: process.env.SITE_URI || "https://asimreviews.netlify.app/",
     siteName: "Asim Reviews",
     locale: "en_US",
     type: "website",

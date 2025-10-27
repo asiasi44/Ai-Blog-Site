@@ -104,7 +104,7 @@ export default function ProductList({ products }: { products: Product[] }) {
         {displayedProducts.map((product) => (
           <Link
             key={product.asin}
-            href={`/${product.asin}`}
+            href={`/product/${product.asin}`}
             className="group"
           >
             <div className="bg-white rounded-xl border border-gray-200 hover:border-blue-300 overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col">

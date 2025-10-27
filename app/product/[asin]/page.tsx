@@ -45,7 +45,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `https://asimreviews.netlify.app/${asin}`,
+      url: `${process.env.SITE_URI}/${asin}` || `https://asimreviews.netlify.app/${asin}`,
       siteName: "Asim Reviews",
       type: "article",
       images: productData.image
