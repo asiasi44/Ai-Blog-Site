@@ -2,14 +2,15 @@ import { client } from "@/lib/sanity.client";
 import { singleBlogQuery } from "@/lib/queries";
 import { urlFor } from "@/lib/imageUrl";
 import { PortableText } from "@portabletext/react";
+import Image from "next/image";
 
-export default async function BlogPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { slug } = await params;
-  const blog = await client.fetch(singleBlogQuery, { slug: slug });
+interface BlogPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function BlogPage({ params }: BlogPageProps) {
+  const { slug } = await params; // ✅ Next.js 15 dynamic routes use async params now
+  const blog = await client.fetch(singleBlogQuery, { slug });
 
   if (!blog) return <div>Not Found</div>;
 
@@ -21,7 +22,9 @@ export default async function BlogPage({
       </p>
 
       {blog.image && (
-        <img
+        <Image
+          width={800}
+          height={800}
           src={urlFor(blog.image).width(1000).url()}
           alt={blog.title}
           className="rounded-xl mb-8"
@@ -45,14 +48,14 @@ export default async function BlogPage({
                   className="border p-4 rounded-lg shadow-sm"
                 >
                   <h3 className="text-2xl font-semibold mb-2">
-                    <a
-                      href={item.link}
-                    >
+                    <a href={item.link}>
                       #{item.rank} — {item.title}
                     </a>
                   </h3>
                   {item.image && (
-                    <img
+                    <Image
+                      width={800}
+                      height={800}
                       src={urlFor(item.image).width(800).url()}
                       alt={item.title}
                       className="rounded-md mb-3"

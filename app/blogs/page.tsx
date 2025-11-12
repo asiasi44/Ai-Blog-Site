@@ -1,10 +1,11 @@
-import { client } from '@/lib/sanity.client'
-import { allBlogsQuery } from '@/lib/queries'
-import { urlFor } from '@/lib/imageUrl'
-import Link from 'next/link'
+import { client } from "@/lib/sanity.client";
+import { allBlogsQuery } from "@/lib/queries";
+import { urlFor } from "@/lib/imageUrl";
+import Link from "next/link";
+import Image from "next/image";
 
 export default async function Home() {
-  const blogs = await client.fetch(allBlogsQuery)
+  const blogs = await client.fetch(allBlogsQuery);
 
   return (
     <main className="max-w-4xl mx-auto p-6">
@@ -14,7 +15,9 @@ export default async function Home() {
           <Link key={blog._id} href={`/blogs/${blog.slug.current}`}>
             <div className="border p-4 rounded-lg hover:shadow-md transition">
               {blog.image && (
-                <img
+                <Image
+                  width={800}
+                  height={800}
                   src={urlFor(blog.image).width(800).url()}
                   alt={blog.title}
                   className="rounded-lg mb-3"
@@ -29,5 +32,5 @@ export default async function Home() {
         ))}
       </div>
     </main>
-  )
+  );
 }
