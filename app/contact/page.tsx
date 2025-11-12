@@ -4,7 +4,7 @@ export const metadata = {
 };
 
 export default function ContactPage() {
-  const email = "asimpoudel2002@example.com"; // ← replace with your email
+  const email = "asimpoudel2002@gmail.com"; // ← replace with your email
   const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=Product Review Inquiry`;
 
   return (

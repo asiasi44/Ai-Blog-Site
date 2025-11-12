@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
 
         hostname: "m.media-amazon.com",
       },
+      {protocol: "https", hostname: "cdn.sanity.io"}
     ],
   },
 };
