@@ -1,6 +1,6 @@
 import { ProductType } from "@/types";
 import Link from "next/link";
-import { getAmazonLink } from '@/lib/utils'; // Import the helper function
+import { getAmazonLink } from "@/lib/utils"; // Import the helper function
 
 const FeatureCard = ({
   name,
@@ -22,7 +22,7 @@ const FeatureCard = ({
         <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-full whitespace-nowrap">
           <span className="text-orange-500 text-sm">{stars}</span>
           <span className="font-bold text-gray-900">
-            {Number(rating).toFixed(2)}
+            {Number(rating ?? 0).toFixed(2)}
           </span>
         </div>
       </div>
@@ -46,19 +46,18 @@ const SpecCard = ({ label, value }: { label: string; value: string }) => {
   );
 };
 
-
 export default function ProductPageById({
-    productData,
+  productData,
 }: {
-    productData: ProductType;
+  productData: ProductType;
 }) {
-    // sort features by rating (array-safe)
-    const sortedFeatures = [...productData.features].sort(
-        (a, b) => Number(b.rating) - Number(a.rating)
-    );
-    
-    return (
-        <div className="min-h-screen bg-white text-gray-900">
+  // sort features by rating (array-safe)
+  const sortedFeatures = [...productData.features].sort(
+    (a, b) => Number(b.rating) - Number(a.rating)
+  );
+
+  return (
+    <div className="min-h-screen bg-white text-gray-900">
       {/* ---------------- Hero Section ---------------- */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -87,7 +86,7 @@ export default function ProductPageById({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-blue-600 text-white px-10 py-4 text-center rounded-full text-lg font-medium transition-all duration-300 shadow-lg hover:bg-blue-700 hover:-translate-y-0.5 hover:shadow-xl"
-                >
+              >
                 View on Amazon
               </Link>
             </div>
@@ -96,12 +95,12 @@ export default function ProductPageById({
           <div
             className="w-full h-96 lg:h-[600px] rounded-3xl flex items-center justify-center overflow-hidden shadow-2xl bg-gray-100"
             style={{
-                backgroundImage: `url(${productData.image})`,
-                backgroundSize: "contain",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
+              backgroundImage: `url(${productData.image})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
             }}
-            />
+          />
         </div>
       </div>
 
@@ -119,12 +118,12 @@ export default function ProductPageById({
 
           <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {sortedFeatures.map((feature, i) => (
-                <FeatureCard
+              <FeatureCard
                 key={i}
                 name={feature.name}
                 rating={feature.rating}
                 verdict={feature.verdict}
-                />
+              />
             ))}
           </div>
         </div>
@@ -144,7 +143,7 @@ export default function ProductPageById({
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-gray-200 border border-gray-200 rounded-xl overflow-hidden">
             {productData.specifications.map((spec, i) => (
-                <SpecCard key={i} label={spec.name} value={spec.value} />
+              <SpecCard key={i} label={spec.name} value={spec.value} />
             ))}
           </div>
         </div>
@@ -169,7 +168,7 @@ export default function ProductPageById({
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-orange-500 text-lg font-medium transition-all duration-300 hover:gap-4"
-            >
+          >
             Read all reviews on Amazon →
           </a>
         </div>

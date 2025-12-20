@@ -96,7 +96,9 @@ const OverviewSection = ({ productData }) => (
             className="border-b border-gray-100 pb-4 last:border-b-0"
           >
             <div className="flex justify-between items-center mb-2">
-              <span className="font-semibold text-gray-800">{feature.name}</span>
+              <span className="font-semibold text-gray-800">
+                {feature.name}
+              </span>
               <div className="flex items-center space-x-2">
                 <span className="text-2xl font-bold text-gray-800">
                   {feature.score}/5
@@ -108,7 +110,7 @@ const OverviewSection = ({ productData }) => (
             </div>
             <ScoreBar score={feature.score} />
             <div className="text-xs text-gray-500 mt-1">
-              Confidence: {(feature.confidence * 100).toFixed(0)}%
+              Confidence: {Number(feature.confidence ?? 0 * 100).toFixed(0)}%
             </div>
           </div>
         ))}

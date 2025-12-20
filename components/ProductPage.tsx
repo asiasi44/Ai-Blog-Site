@@ -181,7 +181,7 @@ export default function ProductsClient({
                         {getStars(product.overall_rating)}
                       </span>
                       <span className="font-semibold text-gray-900">
-                        {product.overall_rating.toFixed(1)}
+                        {Number(product.overall_rating ?? 0).toFixed(1)}
                       </span>
                       <span className="text-gray-500 text-sm">
                         ({product.reviewCount.toLocaleString()})
