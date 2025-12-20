@@ -7,7 +7,7 @@ export async function GET() {
     const client = await clientPromise;
     const db = client.db();
 
-    const analysis_col = db.collection("analysis");
+    const analysis_col = db.collection("blogAnalysis");
 
     // Fetch only asin, rating, and title
     const analyzedProducts = await analysis_col
@@ -17,9 +17,13 @@ export async function GET() {
           projection: {
             _id: 0,
             asin: 1,
-            avg_rating: 1,
+            overall_rating: 1,
+            slug: 1,
             title: 1,
-            gemini_output: 1,
+            highlights: 1,
+            reviewCount: 1,
+            category: 1,
+            image: 1,
           },
         }
       )
