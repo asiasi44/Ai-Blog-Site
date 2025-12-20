@@ -52,9 +52,13 @@ export default function ProductPageById({
   productData: ProductType;
 }) {
   // sort features by rating (array-safe)
-  const sortedFeatures = [...productData.features].sort(
-    (a, b) => Number(b.rating) - Number(a.rating)
+  const sortedFeatures = [...(productData.features ?? [])].sort(
+    (a, b) => Number(b.rating ?? 0) - Number(a.rating ?? 0)
   );
+  const ratingValue = Number(productData.overall_rating ?? 0);
+  const stars =
+    "★".repeat(Math.round(ratingValue)) +
+    "☆".repeat(5 - Math.round(ratingValue));
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
@@ -63,26 +67,25 @@ export default function ProductPageById({
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="lg:pr-8">
             <h1 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight">
-              {productData.title}
+              {productData.title ?? "Untitled Product"}
             </h1>
 
             <p className="text-xl text-gray-600 mb-10 leading-relaxed">
-              {productData.introduction}
+              {productData.introduction ?? ""}
             </p>
 
             <div className="flex gap-4 items-center flex-wrap">
               <div className="inline-flex items-center gap-4 bg-gray-100 px-7 py-4 rounded-full">
                 <span className="text-orange-500 text-2xl tracking-wider">
-                  {"★".repeat(Math.round(productData.overall_rating)) +
-                    "☆".repeat(5 - Math.round(productData.overall_rating))}
+                  {stars}
                 </span>
                 <span className="text-3xl font-semibold text-gray-900">
-                  {productData.overall_rating}
+                  {ratingValue.toFixed(1)}
                 </span>
               </div>
 
               <Link
-                href={getAmazonLink(productData.asin)}
+                href={productData.asin ? getAmazonLink(productData.asin) : "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-blue-600 text-white px-10 py-4 text-center rounded-full text-lg font-medium transition-all duration-300 shadow-lg hover:bg-blue-700 hover:-translate-y-0.5 hover:shadow-xl"
@@ -95,7 +98,7 @@ export default function ProductPageById({
           <div
             className="w-full h-96 lg:h-[600px] rounded-3xl flex items-center justify-center overflow-hidden shadow-2xl bg-gray-100"
             style={{
-              backgroundImage: `url(${productData.image})`,
+              backgroundImage: `url(${productData.image ?? "/icon.png"})`,
               backgroundSize: "contain",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
@@ -142,8 +145,12 @@ export default function ProductPageById({
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-gray-200 border border-gray-200 rounded-xl overflow-hidden">
-            {productData.specifications.map((spec, i) => (
-              <SpecCard key={i} label={spec.name} value={spec.value} />
+            {(productData.specifications ?? []).map((spec, i) => (
+              <SpecCard
+                key={i}
+                label={spec.name ?? ""}
+                value={spec.value ?? ""}
+              />
             ))}
           </div>
         </div>
@@ -160,7 +167,7 @@ export default function ProductPageById({
           </div>
 
           <p className="text-2xl leading-relaxed max-w-4xl mb-8">
-            {productData.final_verdict}
+            {productData.final_verdict ?? ""}
           </p>
 
           <a

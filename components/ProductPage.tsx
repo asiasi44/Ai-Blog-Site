@@ -14,7 +14,9 @@ function generateCategories(products: ProductType[]) {
     { id: "all", label: "All Products" },
     ...unique.map((cat) => ({
       id: cat,
-      label: (cat ?? "Unknown").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+      label: (cat ?? "Unknown")
+        .replace(/-/g, " ")
+        .replace(/\b\w/g, (c) => c.toUpperCase()),
     })),
   ];
 }
@@ -33,7 +35,7 @@ export default function ProductsClient({
     return products.filter((product) => {
       const matchesCategory =
         currentCategory === "all" || product.category === currentCategory;
-      const matchesSearch = product.title
+      const matchesSearch = (product.title ?? "")
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
       return matchesCategory && matchesSearch;
@@ -159,7 +161,7 @@ export default function ProductsClient({
                   <div
                     className="relative h-72 bg-gray-100 flex items-center justify-center text-5xl"
                     style={{
-                      backgroundImage: `url(${product.image})`,
+                      backgroundImage: `url(${product.image ?? "/icon.png"})`,
                       backgroundSize: "contain",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "center",
@@ -184,13 +186,13 @@ export default function ProductsClient({
                         {Number(product.overall_rating ?? 0).toFixed(1)}
                       </span>
                       <span className="text-gray-500 text-sm">
-                        ({product.reviewCount.toLocaleString()})
+                        ({(product.reviewCount ?? 0).toLocaleString()})
                       </span>
                     </div>
 
                     {/* Highlights */}
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {product.highlights.map((highlight, idx) => (
+                      {(product.highlights || []).map((highlight, idx) => (
                         <span
                           key={idx}
                           className="bg-gray-100 text-gray-900 px-3 py-1.5 rounded-xl text-sm"
