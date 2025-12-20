@@ -20,7 +20,7 @@ const AmazonButton = ({ asin, className = "", size = "normal", variant = "primar
 
   return (
     <a
-      href={getAmazonLink(asin)}
+      href={asin ? getAmazonLink(productData.asin) : "#"}
       target="_blank"
       rel="noopener noreferrer"
       className={`${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}

@@ -9,3 +9,4 @@ export function useBlogByAsin(asin: string) {
   const { data, error, isLoading } = useSWR(`/api/product/${asin}`, fetcher);
   return { data, error, isLoading };
 }
+

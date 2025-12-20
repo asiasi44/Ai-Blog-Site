@@ -40,8 +40,6 @@ export function ProductRow({ product, isProductScraped, setCurrentAsin }) {
       deleteProduct(asin);
     }
   };
-
-  console.log(product.is_analyzed);
   
   return (
     <TableRow key={product.asin}>
