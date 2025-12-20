@@ -6,13 +6,15 @@ import Link from "next/link";
 import { ProductType } from "@/types";
 
 function generateCategories(products: ProductType[]) {
-  const unique = Array.from(new Set(products.map((p) => p.category)));
+  const unique = Array.from(
+    new Set(products.map((p) => p.category ?? "unknown"))
+  );
 
   return [
     { id: "all", label: "All Products" },
     ...unique.map((cat) => ({
       id: cat,
-      label: cat.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+      label: (cat ?? "Unknown").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
     })),
   ];
 }

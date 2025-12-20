@@ -1,5 +1,6 @@
 import { ProductType } from "@/types";
 import Link from "next/link";
+import { getAmazonLink } from '@/lib/utils'; // Import the helper function
 
 const FeatureCard = ({
   name,
@@ -82,7 +83,7 @@ export default function ProductPageById({
               </div>
 
               <Link
-                href={`https://www.amazon.com/dp/${productData.asin}`}
+                href={getAmazonLink(productData.asin)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-blue-600 text-white px-10 py-4 text-center rounded-full text-lg font-medium transition-all duration-300 shadow-lg hover:bg-blue-700 hover:-translate-y-0.5 hover:shadow-xl"
