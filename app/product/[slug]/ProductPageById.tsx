@@ -170,14 +170,14 @@ export default function ProductPageById({
             {productData.final_verdict ?? ""}
           </p>
 
-          <a
-            href={`https://www.amazon.com/dp/${productData.asin}`}
+          <Link
+            href={productData.asin ? getAmazonLink(productData.asin) : "#"}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-orange-500 text-lg font-medium transition-all duration-300 hover:gap-4"
           >
             Read all reviews on Amazon →
-          </a>
+          </Link>
         </div>
       </div>
     </div>
