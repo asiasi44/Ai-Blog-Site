@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description:
     "Discover in-depth, data-driven product reviews powered by AI. Explore gadgets, headphones, home essentials, and more — with insights that help you buy smarter.",
   other: {
-    "google-site-verification": "9zDDfoatluQ3iL_aPxJdc3vQLIDp0QNNP1V86YUmdZQ",
+    "google-site-verification": "eHK4gnsSuDp43s322_h3gU5BWtKhQBRgj4Bd7wyWT0A",
   },
   keywords:
     "product reviews, amazon affiliate, best gadgets 2025, honest reviews, AI review analysis",
