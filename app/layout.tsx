@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     title: "Ranknest - Honest Product Reviews & Smart Recommendations",
     description:
       "AI-powered product reviews and insights. Make better buying decisions with data, not hype.",
-    url: process.env.SITE_URI || "https://asimreviews.netlify.app/",
-    siteName: "Asim Reviews",
+    url: process.env.SITE_URI || "https://ranknest.tech/",
+    siteName: "Ranknest",
     locale: "en_US",
     type: "website",
     images: [
