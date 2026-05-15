@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   other: {
     "google-site-verification": "eHK4gnsSuDp43s322_h3gU5BWtKhQBRgj4Bd7wyWT0A",
   },
+  appleWebApp: {
+    title: "Ranknest",
+    capable: true,
+  },
   keywords:
     "product reviews, amazon affiliate, best gadgets 2025, honest reviews, AI review analysis",
   openGraph: {
@@ -40,7 +44,19 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: "/icon.png",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+    other: [
+      {
+        rel: "manifest",
+        url: "/site.webmanifest",
+      },
+    ],
   },
 };
 
