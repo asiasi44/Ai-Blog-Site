@@ -43,7 +43,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  metadataBase: new URL(`${process.env.SITE_URI}`),
+  metadataBase: new URL("https://ranknest.tech"),
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
