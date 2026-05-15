@@ -6,7 +6,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <Link href="/" className="text-2xl font-bold text-gray-900">
-            ProductReviews
+            Ranknest
           </Link>
         </div>
       </div>
