@@ -38,11 +38,12 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/icon.png",
-        width: 120,
+        width: 1200,
         height: 630,
       },
     ],
   },
+  metadataBase: new URL("https://ranknest.tech"),
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
