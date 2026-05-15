@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || "https://asimreviews.netlify.app", // 🔁 change to your actual domain when you get one
+  siteUrl: process.env.SITE_URL || "https://ranknest.tech", // 🔁 change to your actual domain when you get one
   generateRobotsTxt: true, // (optional)
   sitemapSize: 7000,
   changefreq: 'daily',

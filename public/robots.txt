@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://asimreviews.netlify.app
+Host: https://ranknest.tech
 
 # Sitemaps
-Sitemap: https://asimreviews.netlify.app/sitemap.xml
+Sitemap: https://ranknest.tech/sitemap.xml
