@@ -1,13 +1,13 @@
-// app/ProductsClient.tsx
 "use client";
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { ProductType } from "@/types";
+import Navbar from "./Navbar";
 
 function generateCategories(products: ProductType[]) {
   const unique = Array.from(
-    new Set(products.map((p) => p.category ?? "unknown"))
+    new Set(products.map((p) => p.category ?? "unknown")),
   );
 
   return [
@@ -50,24 +50,7 @@ export default function ProductsClient({
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-gray-50/80 backdrop-blur-md border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <Link href="/" className="text-2xl font-bold text-gray-900">
-              Ranknest
-            </Link>
-            <div className="flex-1 max-w-xl order-3 lg:order-2 w-full lg:w-auto mx-0 lg:mx-8">
-              <input
-                type="text"
-                className="w-full px-5 py-3 border border-gray-300 rounded-full text-base focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all"
-                placeholder="Search products..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       {/* Hero */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20 text-center">
