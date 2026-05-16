@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShoppingCart, ExternalLink } from 'lucide-react';
-import { getAmazonLink } from '../../lib/utils'; // Import the helper function
+import { getAmazonLink } from '@/lib/functions/utils'; // Import the helper function
 
 // A reusable button component for Amazon links.
 const AmazonButton = ({ asin, className = "", size = "normal", variant = "primary" }) => {
