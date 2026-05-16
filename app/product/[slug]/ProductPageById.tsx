@@ -1,6 +1,6 @@
 import { ProductType } from "@/types";
 import Link from "next/link";
-import { getAmazonLink } from "@/lib/utils"; // Import the helper function
+import { getAmazonLink } from "@/lib/functions/utils"; // Import the helper function
 
 const FeatureCard = ({
   name,

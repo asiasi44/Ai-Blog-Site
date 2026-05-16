@@ -1,6 +1,6 @@
 import { Star } from "lucide-react";
 import AmazonButton from "../common/AmazonButton";
-import { getConfidenceLevel } from "../../lib/utils";
+import { getConfidenceLevel } from "@/lib/functions/utils";
 import Image from "next/image";
 // The main hero section of the product page.
 const HeroSection = ({ productData }) => {
