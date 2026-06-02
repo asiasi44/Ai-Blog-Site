@@ -115,7 +115,7 @@ export default function ProductPageById({
               What Customers Are Saying
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl">
-              Real feedback from verified usersocky users about their experience
+              Real feedback from verified users about their experience
             </p>
           </div>
 
