@@ -7,7 +7,7 @@ export async function subscribeToNewsletter(
 ): Promise<{ success: boolean; message: string }> {
   try {
     await dbConnect();
-
+    console.log(email);
     return { success: true, message: "Subscribed Successfully" };
   } catch (error: any) {
     console.log(error.message);

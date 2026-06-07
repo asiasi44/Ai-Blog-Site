@@ -1,7 +1,10 @@
-// app/product/[asin]/page.tsx
+// app/product/[slug]/page.tsx
 import { ProductType } from "@/types";
 import ProductPageById from "./ProductPageById";
 import clientPromise from "@/lib/db";
+import Link from "next/link";
+import { ChevronRight, Home } from "lucide-react";
+import { slugify } from "@/lib/functions/slugify";
 
 // Revalidate every 1 hour
 export const revalidate = 3600;
@@ -28,7 +31,7 @@ async function getProduct(slug: string): Promise<ProductType> {
         image: 1,
         final_verdict: 1,
       },
-    }
+    },
   );
 
   if (!product) throw new Error("Product not found");
@@ -58,5 +61,41 @@ export default async function ProductPage({
   const { slug } = await params;
   const product = await getProduct(slug);
 
-  return <ProductPageById productData={product} />;
+  const categorySlug = product.category ? slugify(product.category) : "";
+
+  return (
+    <>
+      {/* Breadcrumb Navigation */}
+      <div className="bg-white border-b border-gray-200 sticky top-20 z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-3 sm:py-4">
+          <div className="flex items-center gap-2 text-sm overflow-x-auto">
+            <Link
+              href="/"
+              className="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors flex-shrink-0"
+            >
+              <Home className="w-4 h-4" />
+              <span className="hidden sm:inline">Home</span>
+            </Link>
+            <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
+            {categorySlug && (
+              <>
+                <Link
+                  href={`/priorityRanker/${categorySlug}`}
+                  className="text-gray-600 hover:text-blue-600 transition-colors truncate"
+                >
+                  {product.category}
+                </Link>
+                <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              </>
+            )}
+            <span className="text-blue-600 font-semibold truncate">
+              {product.title}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <ProductPageById productData={product} />
+    </>
+  );
 }

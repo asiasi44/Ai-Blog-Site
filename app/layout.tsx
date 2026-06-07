@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Toaster } from "@/components/ui/sonner";
@@ -9,8 +9,13 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const interFont = Inter({
+  variable: "--font-inter-font",
+  subsets: ["latin"],
+});
+
+const manropeFont = Manrope({
+  variable: "--font-manrope-font",
   subsets: ["latin"],
 });
 
@@ -71,7 +76,7 @@ export default function RootLayout({
     <html lang="en">
       <GoogleAnalytics gaId="G-Y7BM9SJFY9" />
       <body
-        className={`${geistSans.className} antialiased`}
+        className={`${geistSans.variable} ${interFont.variable} ${manropeFont.variable} font-geist antialiased`}
       >
         {children}
         <Toaster position="top-right" />
