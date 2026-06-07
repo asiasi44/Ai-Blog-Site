@@ -1,5 +1,9 @@
 import { getProductsByCategory } from "@/lib/fetches/productByCategory";
-import AdjustFilters from "./filter/adjustFilter";
+import PriorityClient from "./priorityClient";
+import { THEME } from "@/lib/design/theme";
+import Breadcrumb from "@/components/Breadcrumb";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default async function RankCategory({
   params,
@@ -10,15 +14,102 @@ export default async function RankCategory({
   const { productsByCategory, currentCategory } =
     await getProductsByCategory(category);
 
-  console.log(productsByCategory);
-  console.log(currentCategory);
   return (
-    <div className="p-16 flex flex-col gap-12">
-      <div className="text-[61.04px] font-manrope text-center font-bold">
-        {currentCategory.category}
+    <>
+      {/* Breadcrumb Navigation */}
+      <Breadcrumb
+        items={[
+          {
+            label: "Categories",
+            href: "/#categories",
+          },
+          {
+            label: currentCategory?.category || "Products",
+          },
+        ]}
+      />
+
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-gray-50">
+        <div className="py-8 sm:py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            {/* Header */}
+            <div className="mb-12 sm:mb-16 text-center">
+              <div className="inline-block mb-4 px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold">
+                🔍 Smart Product Ranking
+              </div>
+              <h1
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight capitalize mb-4 leading-tight"
+                style={{ color: THEME.primary[900] }}
+              >
+                {currentCategory?.category || "Products"}
+              </h1>
+              <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+                Rank these products by YOUR priorities. Adjust the sliders below
+                to see products reordered in real-time.
+              </p>
+
+              {/* Secondary Navigation */}
+              <div className="flex flex-wrap gap-3 justify-center mt-8">
+                <Link
+                  href="/"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 text-gray-700 hover:border-blue-300 hover:text-blue-600 transition-colors text-sm font-medium"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Home
+                </Link>
+                <Link
+                  href="/#categories"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 transition-colors text-sm font-medium"
+                >
+                  Browse All
+                </Link>
+              </div>
+            </div>
+
+            {/* Priority Ranker Component */}
+            <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 lg:p-12 border border-gray-100">
+              <PriorityClient
+                currentCategory={currentCategory}
+                productsByCategory={productsByCategory}
+              />
+            </div>
+
+            {/* Info Section */}
+            <div className="mt-12 sm:mt-16 grid md:grid-cols-3 gap-6 sm:gap-8">
+              {[
+                {
+                  icon: "📊",
+                  title: "Real Data",
+                  desc: "Rankings based on verified Amazon reviews and specifications",
+                },
+                {
+                  icon: "⚙️",
+                  title: "Your Control",
+                  desc: "Adjust priorities to match exactly what matters to you",
+                },
+                {
+                  icon: "⭐",
+                  title: "Instant Results",
+                  desc: "See product rankings update as you change your preferences",
+                },
+              ].map((info, i) => (
+                <div
+                  key={i}
+                  className="p-6 sm:p-8 rounded-xl bg-white border border-gray-100 hover:border-blue-200 transition-all duration-300 hover:shadow-md"
+                >
+                  <div className="text-4xl mb-3">{info.icon}</div>
+                  <h3 className="font-bold text-lg text-gray-900 mb-2">
+                    {info.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm sm:text-base">
+                    {info.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-      <AdjustFilters currentCategory={currentCategory} />
-      <div></div>
-    </div>
+    </>
   );
 }

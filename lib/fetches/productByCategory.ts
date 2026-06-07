@@ -4,23 +4,24 @@ import Category from "@/models/Category";
 
 export async function getProductsByCategory(slug: string) {
   await dbConnect();
-  
-  const currentCategoryDoc = await Category.findOne({ show: true, slug })
+  const currentCategoryDoc = await Category.findOne({ slug })
     .select("category features")
     .lean();
 
   if (!currentCategoryDoc) {
-    return { productsByCategory: [], currentCategory: null };
+    return { productsByCategory: [], currentCategory: { features: [] } };
   }
+  console.log("hello");
 
   const currentCategory = {
     ...currentCategoryDoc,
     _id: currentCategoryDoc._id.toString(),
-    features: currentCategoryDoc.features?.map((feature: any) => ({
-      ...feature,
-      _id: feature._id.toString(),
-      keywords: Array.isArray(feature.keywords) ? feature.keywords : [],
-    })) || []
+    features:
+      currentCategoryDoc.features?.map((feature: any) => ({
+        ...feature,
+        _id: feature._id.toString(),
+        keywords: Array.isArray(feature.keywords) ? feature.keywords : [],
+      })) || [],
   };
 
   const categoryName = currentCategory?.category || "";
@@ -31,8 +32,7 @@ export async function getProductsByCategory(slug: string) {
 
   const productsByCategory = productsByCategoryRaw.map((product: any) => ({
     ...product,
-    _id: product._id.toString()
+    _id: product._id.toString(),
   }));
-
   return { productsByCategory, currentCategory };
 }

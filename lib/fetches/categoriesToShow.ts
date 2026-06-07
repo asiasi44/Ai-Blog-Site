@@ -3,6 +3,13 @@ import dbConnect from "@/lib/mongoose";
 
 export async function getCategoriesToShow() {
   await dbConnect();
-  const allCategories = await Category.find().select("category");
-  return allCategories;
+
+  const categories = await Category.find({ show: true })
+    .select("category")
+    .lean();
+
+  return categories.map((c) => ({
+    _id: c._id.toString(),
+    category: c.category,
+  }));
 }
