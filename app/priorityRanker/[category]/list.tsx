@@ -104,7 +104,6 @@ export default function ProductsList({
         <span>Product</span>
         <span className="text-right">Score</span>
         <span className="text-right">Rating</span>
-        <span className="text-right">Price</span>
         <span></span>
       </div>
 
@@ -212,10 +211,6 @@ export default function ProductsList({
                 </div>
               </div>
 
-              {/* Price */}
-              <div className="text-right text-[13px] font-bold text-gray-900">
-                {product.price || "—"}
-              </div>
 
               {/* Chevron */}
               <div className="flex justify-end">
