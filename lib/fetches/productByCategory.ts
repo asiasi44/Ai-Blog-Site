@@ -32,7 +32,7 @@ async function fetchRawProductsByCategory(slug: string) {
   const productsByCategoryRaw = await BlogAnalysis.find({
     category: categoryName,
   })
-  .select("title price overall_rating category image features") // Keeps payload light
+  .select("title overall_rating category image features asin reviewCount") // Keeps payload light
   .lean();
 
   const productsByCategory = productsByCategoryRaw.map((product: any) => ({
