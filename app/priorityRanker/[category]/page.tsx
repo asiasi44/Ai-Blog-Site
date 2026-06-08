@@ -6,6 +6,8 @@ import Link from "next/link";
 import dbConnect from "@/lib/mongoose";
 import Category from "@/models/Category";
 import { ArrowLeft } from "lucide-react";
+import { Metadata } from "next";
+import { capitalizeWords } from "@/lib/functions/capitalize";
 
 export const revalidate = 86400;
 
@@ -15,6 +17,39 @@ export async function generateStaticParams() {
   return categories.map((c) => ({
     category: c.slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { category: string };
+}): Promise<Metadata> {
+  const { category } = params;
+
+  await dbConnect();
+
+  const categoryDoc = await Category.findOne({ slug: category })
+
+    .select("category")
+
+    .lean();
+
+  const name = categoryDoc?.category
+    ? capitalizeWords(categoryDoc.category)
+    : "Products";
+  return {
+    title: `${name} - Smart Product Rankings | RankNest`,
+
+    description: `Compare and rank the best ${name.toLowerCase()} based on your priorities like price, quality, features, and reviews.`,
+
+    openGraph: {
+      title: `${name} - Smart Product Rankings`,
+
+      description: `Find the best ${name.toLowerCase()} tailored to your needs.`,
+
+      type: "website",
+    },
+  };
 }
 
 export default async function RankCategory({

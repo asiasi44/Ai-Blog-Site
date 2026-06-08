@@ -37,7 +37,7 @@ export async function getProductsByCategory(slug: string) {
   })
 
     .select(
-      "title price rating category image features overall_rating asin reviewCount",
+      "title price rating category image features overall_rating asin reviewCount slug",
     )
 
     .lean();

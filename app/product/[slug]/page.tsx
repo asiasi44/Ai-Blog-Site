@@ -5,7 +5,7 @@ import clientPromise from "@/lib/db";
 import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
 import { slugify } from "@/lib/functions/slugify";
-
+import { Metadata } from "next";
 // Revalidate every 1 hour
 export const revalidate = 3600;
 
@@ -50,6 +50,54 @@ export async function generateStaticParams() {
     .toArray();
 
   return products.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const client = await clientPromise;
+
+  const db = client.db();
+
+  const product = await db.collection("blogAnalysis").findOne(
+    { slug: params.slug },
+
+    {
+      projection: {
+        title: 1,
+        category: 1,
+        overall_rating: 1,
+        image: 1,
+      },
+    },
+  );
+
+  if (!product) {
+    return {
+      title: "Product Not Found | RankNest",
+    };
+  }
+
+  const title = product.title;
+
+  const category =
+    product.category?.charAt(0).toUpperCase() + product.category?.slice(1);
+
+  return {
+    title: `${title} Review - Best ${category} Analysis | RankNest`,
+
+    description: `Detailed review and AI-powered analysis of ${title}. Compare ratings, features, and real user insights before you buy.`,
+
+    openGraph: {
+      title: `${title} Review`,
+
+      description: `Check performance, reviews, and rankings for ${title}.`,
+
+      images: product.image ? [product.image] : [],
+    },
+  };
 }
 
 // Dynamic page component

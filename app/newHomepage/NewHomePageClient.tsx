@@ -92,11 +92,11 @@ export default function NewHomePageClient({
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-5 h-5 text-blue-600" />
-                <span>Thousands of Users</span>
+                <span>Hundreds of Users</span>
               </div>
               <div className="flex items-center gap-2">
                 <Star className="w-5 h-5 text-amber-500" />
-                <span>Amazon Verified</span>
+                <span>Real, Verified Users</span>
               </div>
             </div>
           </div>

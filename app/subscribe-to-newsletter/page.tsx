@@ -3,11 +3,45 @@ import { Inter } from "next/font/google";
 import AddEmail from "./addEmail";
 import { parseUtmCampaign, parseUtmSource } from "./utm";
 import Link from "next/link";
+import { Metadata } from "next";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}): Promise<Metadata> {
+  const params = await searchParams;
+
+  const source = params?.utm_source ? String(params.utm_source) : "";
+  const campaign = params?.utm_campaign ? String(params.utm_campaign) : "";
+
+  const title = "Weekly Product Picks Newsletter | RankNest";
+
+  const description =
+    source || campaign
+      ? `Join RankNest newsletter for curated product picks and recommendations. Personalized for ${source || "you"} updates.`
+      : "Join RankNest newsletter and get weekly AI-powered product picks, reviews, and buying recommendations delivered to your inbox.";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
+}
 
 export default async function SubscribeToNewsletter({
   searchParams,
