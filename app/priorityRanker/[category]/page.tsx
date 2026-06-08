@@ -3,9 +3,19 @@ import PriorityClient from "./priorityClient";
 import { THEME } from "@/lib/design/theme";
 import Breadcrumb from "@/components/Breadcrumb";
 import Link from "next/link";
+import dbConnect from "@/lib/mongoose";
+import Category from "@/models/Category";
 import { ArrowLeft } from "lucide-react";
 
-export const revalidate = 86400
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  await dbConnect();
+  const categories = await Category.find({ show: true }).select("slug").lean();
+  return categories.map((c) => ({
+    category: c.slug,
+  }));
+}
 
 export default async function RankCategory({
   params,
