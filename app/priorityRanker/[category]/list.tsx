@@ -114,7 +114,7 @@ export default function ProductsList({
         const badge = getRankBadge(index);
         const rankColor = getRankColor(index);
         const isFlashing = flashKeys.has(product.asin);
-
+        console.log(product.asin)
         return (
           <div
             key={product.asin}

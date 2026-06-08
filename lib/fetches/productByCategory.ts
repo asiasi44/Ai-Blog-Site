@@ -6,7 +6,7 @@ import { unstable_cache } from "next/cache"; // <-- Import the cache wrapper
 // 1. Keep your DB logic in an internal helper function
 async function fetchRawProductsByCategory(slug: string) {
   await dbConnect();
-  
+
   const currentCategoryDoc = await Category.findOne({ slug })
     .select("category features")
     .lean();
@@ -32,8 +32,7 @@ async function fetchRawProductsByCategory(slug: string) {
   const productsByCategoryRaw = await BlogAnalysis.find({
     category: categoryName,
   })
-  .select("title overall_rating category image features asin reviewCount") // Keeps payload light
-  .lean();
+    .lean();
 
   const productsByCategory = productsByCategoryRaw.map((product: any) => ({
     ...product,
@@ -51,6 +50,6 @@ export const getProductsByCategory = (slug: string) => {
     {
       revalidate: 86400, // Cache for 24 hours
       tags: [`category-${slug}`], // Allows manual cache purging later
-    }
+    },
   )();
 };
