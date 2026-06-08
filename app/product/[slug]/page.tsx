@@ -55,14 +55,15 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const client = await clientPromise;
 
   const db = client.db();
 
+  const { slug } = await params;
   const product = await db.collection("blogAnalysis").findOne(
-    { slug: params.slug },
+    { slug },
 
     {
       projection: {

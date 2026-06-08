@@ -22,9 +22,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 }): Promise<Metadata> {
-  const { category } = params;
+  const { category } = await params;
 
   await dbConnect();
 
