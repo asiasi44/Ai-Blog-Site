@@ -3,6 +3,8 @@ import { Geist, Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Toaster } from "@/components/ui/sonner";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -75,6 +77,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GoogleAnalytics gaId="G-Y7BM9SJFY9" />
+      <SpeedInsights />
+      <Analytics />
       <body
         className={`${geistSans.variable} ${interFont.variable} ${manropeFont.variable} font-geist antialiased`}
       >
