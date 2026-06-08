@@ -5,6 +5,8 @@ import Breadcrumb from "@/components/Breadcrumb";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
+export const revalidate = 86400
+
 export default async function RankCategory({
   params,
 }: {

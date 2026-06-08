@@ -211,7 +211,6 @@ export default function ProductsList({
                 </div>
               </div>
 
-
               {/* Chevron */}
               <div className="flex justify-end">
                 <ChevronDown
