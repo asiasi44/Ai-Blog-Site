@@ -1,6 +1,8 @@
 import Category from "@/models/Category";
 import dbConnect from "@/lib/mongoose";
 
+export const revalidate = 60;
+
 export async function getCategoriesToShow() {
   await dbConnect();
 
