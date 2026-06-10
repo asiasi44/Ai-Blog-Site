@@ -23,9 +23,12 @@ const manropeFont = Manrope({
 
 export const metadata: Metadata = {
   applicationName: "Ranknest",
-  title: "Ranknest - Honest Product Reviews & Smart Recommendations",
+  title: {
+    default: "Ranknest — Rank Products by YOUR Priorities",
+    template: "%s | Ranknest",
+  },
   description:
-    "Discover in-depth, data-driven product reviews powered by AI. Explore gadgets, headphones, home essentials, and more — with insights that help you buy smarter.",
+    "Set your own priorities and see products ranked instantly for what YOU care about. Free, no signup.",
   other: {
     "google-site-verification": "eHK4gnsSuDp43s322_h3gU5BWtKhQBRgj4Bd7wyWT0A",
   },
