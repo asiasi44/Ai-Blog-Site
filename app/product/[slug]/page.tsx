@@ -87,7 +87,7 @@ export async function generateMetadata({
     product.category?.charAt(0).toUpperCase() + product.category?.slice(1);
 
   return {
-    title: `${title} Review - Best ${category} Analysis | RankNest`,
+    title: `${title} Review `,
 
     description: `Detailed review and AI-powered analysis of ${title}. Compare ratings, features, and real user insights before you buy.`,
 
