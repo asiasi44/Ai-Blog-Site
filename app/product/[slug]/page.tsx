@@ -6,8 +6,14 @@ import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
 import { slugify } from "@/lib/functions/slugify";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
+
 // Revalidate every 1 hour
 export const revalidate = 3600;
+
+export const dynamicParams = false;
+
+const PUBLIC_STATUSES = ["legacy", "published"];
 
 // Fetch a single product from MongoDB
 async function getProduct(slug: string): Promise<ProductType> {
@@ -15,7 +21,10 @@ async function getProduct(slug: string): Promise<ProductType> {
   const db = client.db();
 
   const product = await db.collection<ProductType>("blogAnalysis").findOne(
-    { slug },
+    {
+      slug,
+      status: { $in: PUBLIC_STATUSES },
+    },
     {
       projection: {
         _id: 0,
@@ -34,7 +43,7 @@ async function getProduct(slug: string): Promise<ProductType> {
     },
   );
 
-  if (!product) throw new Error("Product not found");
+  if (!product) notFound();
 
   return product;
 }
@@ -46,7 +55,10 @@ export async function generateStaticParams() {
 
   const products = await db
     .collection("blogAnalysis")
-    .find({}, { projection: { slug: 1, _id: 0 } })
+    .find(
+      { status: { $in: PUBLIC_STATUSES } },
+      { projection: { slug: 1, _id: 0 } },
+    )
     .toArray();
 
   return products.map((p) => ({ slug: p.slug }));
@@ -63,14 +75,17 @@ export async function generateMetadata({
 
   const { slug } = await params;
   const product = await db.collection("blogAnalysis").findOne(
-    { slug },
-
+    {
+      slug,
+      status: { $in: PUBLIC_STATUSES },
+    },
     {
       projection: {
         title: 1,
         category: 1,
         overall_rating: 1,
         image: 1,
+        status: 1,
       },
     },
   );
@@ -87,7 +102,7 @@ export async function generateMetadata({
     product.category?.charAt(0).toUpperCase() + product.category?.slice(1);
 
   return {
-    title: `${title} Review `,
+    title: `${title} - ${category} Review `,
 
     description: `Detailed review and AI-powered analysis of ${title}. Compare ratings, features, and real user insights before you buy.`,
 
@@ -97,6 +112,10 @@ export async function generateMetadata({
       description: `Check performance, reviews, and rankings for ${title}.`,
 
       images: product.image ? [product.image] : [],
+    },
+    robots: {
+      index: product.status === "published",
+      follow: true,
     },
   };
 }

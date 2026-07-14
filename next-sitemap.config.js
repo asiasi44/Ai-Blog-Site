@@ -5,5 +5,5 @@ module.exports = {
   sitemapSize: 7000,
   changefreq: 'daily',
   priority: 0.7,
-  exclude: ['/admin', '/404'], // optional
+  exclude: ['/admin', '/404', '/admin/*', '/product/*'], // optional
 };

@@ -6,11 +6,8 @@ export async function getProductsByCategory(slug: string) {
   await dbConnect();
 
   const currentCategoryDoc = await Category.findOne({ slug })
-
     .select("category features")
-
     .lean();
-
   if (!currentCategoryDoc) {
     return { productsByCategory: [], currentCategory: { features: [] } };
   }
@@ -23,8 +20,6 @@ export async function getProductsByCategory(slug: string) {
     features:
       currentCategoryDoc.features?.map((feature: any) => ({
         ...feature,
-
-        _id: feature._id.toString(),
 
         keywords: Array.isArray(feature.keywords) ? feature.keywords : [],
       })) || [],

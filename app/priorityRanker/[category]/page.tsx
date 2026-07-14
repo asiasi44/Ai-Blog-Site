@@ -29,9 +29,7 @@ export async function generateMetadata({
   await dbConnect();
 
   const categoryDoc = await Category.findOne({ slug: category })
-
     .select("category")
-
     .lean();
 
   const name = categoryDoc?.category
