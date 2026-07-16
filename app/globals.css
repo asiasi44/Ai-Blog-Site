@@ -8,6 +8,9 @@
   --font-geist: var(--font-geist-sans);
   --font-manrope: var(--font-manrope-font);
   --font-inter: var(--font-inter-font);
+  --font-anton: var(--font-anton-font);
+  --font-caveat: var(--font-caveat-font);
+  --font-nunito: var(--font-nunito-font);
 }
 
 @theme inline {

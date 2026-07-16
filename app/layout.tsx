@@ -1,10 +1,34 @@
 import type { Metadata } from "next";
-import { Geist, Inter, Manrope } from "next/font/google";
+import {
+  Geist,
+  Inter,
+  Manrope,
+  Anton,
+  Caveat,
+  Nunito_Sans,
+} from "next/font/google";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Toaster } from "@/components/ui/sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import Navbar from "@/components/navbar/Navbar";
+
+const anton = Anton({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-anton-font",
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat-font",
+  subsets: ["latin"],
+});
+
+const nunito = Nunito_Sans({
+  subsets: ["latin"],
+  variable: "--font-nunito-font",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -83,8 +107,9 @@ export default function RootLayout({
       <SpeedInsights />
       <Analytics />
       <body
-        className={`${geistSans.variable} ${interFont.variable} ${manropeFont.variable} font-geist antialiased`}
+        className={`${nunito.variable} ${anton.variable} ${caveat.variable} ${geistSans.variable} ${interFont.variable} ${manropeFont.variable} font-geist antialiased`}
       >
+        <Navbar />
         {children}
         <Toaster position="top-right" />
       </body>
