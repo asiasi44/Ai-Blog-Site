@@ -13,6 +13,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/navbar/Navbar";
+import Footer from "@/components/Footer";
 
 const anton = Anton({
   weight: "400",
@@ -111,6 +112,7 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <Footer />
         <Toaster position="top-right" />
       </body>
     </html>

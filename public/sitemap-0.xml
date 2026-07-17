@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://ranknest.tech/about</loc><lastmod>2026-07-14T04:46:34.014Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://ranknest.tech/blogs</loc><lastmod>2026-07-14T04:46:34.018Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://ranknest.tech/contact</loc><lastmod>2026-07-14T04:46:34.018Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://ranknest.tech</loc><lastmod>2026-07-14T04:46:34.018Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://ranknest.tech/priorityRanker/electric-scooter</loc><lastmod>2026-07-14T04:46:34.018Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://ranknest.tech/priorityRanker/headphone</loc><lastmod>2026-07-14T04:46:34.018Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://ranknest.tech/priorityRanker/laptop</loc><lastmod>2026-07-14T04:46:34.018Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://ranknest.tech/priorityRanker/smart-watch</loc><lastmod>2026-07-14T04:46:34.018Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/privacy</loc><lastmod>2026-07-17T04:35:46.565Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/blogs</loc><lastmod>2026-07-17T04:35:46.568Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech</loc><lastmod>2026-07-17T04:35:46.568Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/terms</loc><lastmod>2026-07-17T04:35:46.568Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/the-picture</loc><lastmod>2026-07-17T04:35:46.568Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/the-comfort</loc><lastmod>2026-07-17T04:35:46.568Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/contact</loc><lastmod>2026-07-17T04:35:46.568Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/methodology</loc><lastmod>2026-07-17T04:35:46.568Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/about</loc><lastmod>2026-07-17T04:35:46.568Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/the-sound</loc><lastmod>2026-07-17T04:35:46.568Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/the-sound/best-picks</loc><lastmod>2026-07-17T04:35:46.569Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/priorityRanker/electric-scooter</loc><lastmod>2026-07-17T04:35:46.569Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/priorityRanker/headphone</loc><lastmod>2026-07-17T04:35:46.569Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/priorityRanker/laptop</loc><lastmod>2026-07-17T04:35:46.569Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://ranknest.tech/priorityRanker/smart-watch</loc><lastmod>2026-07-17T04:35:46.569Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>
