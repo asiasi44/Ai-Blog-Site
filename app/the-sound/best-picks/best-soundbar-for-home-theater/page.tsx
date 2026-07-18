@@ -10,7 +10,7 @@ export const metadata = {
   openGraph: {
     title: "Best Soundbar for Home Theater | RankNest",
     description:
-      "Explore RankNest’s curated home theater soundbar roundup for clearer dialogue, better room fit, and immersive movie-night sound.",
+      "Explore RankNest's curated home theater soundbar roundup for clearer dialogue, better room fit, and immersive movie-night sound.",
     url: "https://ranknest.tech/the-sound/best-picks/best-soundbar-for-home-theater",
     type: "article",
   },

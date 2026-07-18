@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import AffiliateLink from "@/components/AffiliateLink";
@@ -26,9 +26,10 @@ const article = {
       tags: ["Immersive", "Dolby Atmos", "High-end"],
       accent: "bg-[#FFF3D6]",
       bar: "bg-[#F2B64D]",
-      productSlug: "samsung-q990d",
-      amazonHref: "https://www.amazon.com/s?k=samsung+q990d&tag=ranknest-20",
-      image: "/soundbar.avif",
+      productSlug:
+        "samsung-q990d-1114ch-dolby-atmos-soundbar-system-B0CTKV9DRP",
+      amazonHref: "https://amzn.to/4pnLPoE",
+      image: "https://m.media-amazon.com/images/I/81SvovFzDjL._AC_SL1500_.jpg",
     },
     {
       category: "The architectural all-in-one",
@@ -39,9 +40,9 @@ const article = {
       tags: ["Minimalist", "Wireless", "Smart"],
       accent: "bg-[#EAF4FF]",
       bar: "bg-[#5FA8FF]",
-      productSlug: "sonos-arc-ultra",
-      amazonHref: "https://www.amazon.com/s?k=sonos+arc+ultra&tag=ranknest-20",
-      image: "/soundbar.avif",
+      productSlug: "sonos-arc-ultra-soundbar-with-dolby-atmos-B0DFK28LBB",
+      amazonHref: "https://amzn.to/4psQGFi",
+      image: "https://m.media-amazon.com/images/I/81x7GSoUZnL._AC_SL1500_.jpg",
     },
     {
       category: "The smart minimalist",
@@ -52,9 +53,9 @@ const article = {
       tags: ["Compact", "A.I. Dialogue", "Apartment-ready"],
       accent: "bg-[#FEEEF2]",
       bar: "bg-[#F08FA7]",
-      productSlug: "bose-smart-dolby-atmos-soundbar",
-      amazonHref: "https://www.amazon.com/s?k=bose+smart+dolby+atmos+soundbar&tag=ranknest-20",
-      image: "/soundbar.avif",
+      productSlug: "bose-smart-ultra-dolby-atmos-soundbar-B0C548MYF3",
+      amazonHref: "https://amzn.to/4w9cW9w",
+      image: "https://m.media-amazon.com/images/I/61Xt4sFgwdL._AC_SL1500_.jpg",
     },
     {
       category: "The spatial illusionist",
@@ -65,9 +66,9 @@ const article = {
       tags: ["Virtual surround", "IMAX Enhanced", "Premium"],
       accent: "bg-[#EEF8EA]",
       bar: "bg-[#7DBB62]",
-      productSlug: "sony-bravia-theater-bar-9",
-      amazonHref: "https://www.amazon.com/s?k=sony+bravia+theater+bar+9&tag=ranknest-20",
-      image: "/soundbar.avif",
+      productSlug: "sony-bravia-theater-system-6-51ch-soundbar-B0DYWTWN8R",
+      amazonHref: "https://amzn.to/4fp6cNQ",
+      image: "https://m.media-amazon.com/images/I/71E8u0yLgjL._AC_SL1500_.jpg",
     },
     {
       category: "The modern modular marvel",
@@ -78,9 +79,9 @@ const article = {
       tags: ["Modular", "Detachable rears", "Flexible"],
       accent: "bg-[#F3EEFF]",
       bar: "bg-[#9B84FF]",
-      productSlug: "jbl-bar-1300x",
-      amazonHref: "https://www.amazon.com/s?k=jbl+bar+1300x&tag=ranknest-20",
-      image: "/soundbar.avif",
+      productSlug: "jbl-bar-1300xmk2-soundbar-system-B0FN1JLNCN",
+      amazonHref: "https://amzn.to/4vx5Zhv",
+      image: "https://m.media-amazon.com/images/I/61z6BL5eRHL._AC_SL1500_.jpg",
     },
   ],
   checklist: [
@@ -139,11 +140,11 @@ export default function BestPicksArticlePage() {
               <div className="relative overflow-hidden border-[3px] border-slate-900 bg-[#FFFDF5] shadow-[4px_4px_0px_0px_rgba(15,23,42,1)]">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.7),_transparent_60%)]" />
                 <Image
-                  src="/soundbar.avif"
+                  src="/images/bestpicks/home-theater-soundbar.png"
                   alt="A stylized soundbar setup that feels cinematic and modern"
                   width={900}
                   height={900}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-fit"
                 />
               </div>
             </div>
@@ -226,7 +227,7 @@ export default function BestPicksArticlePage() {
                           alt={pick.title}
                           width={128}
                           height={128}
-                          className="h-full w-full object-cover"
+                          className="h-full w-full object-contain"
                         />
                       </div>
                     </div>
