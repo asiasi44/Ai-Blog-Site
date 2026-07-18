@@ -1,5 +1,20 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "Terms & Conditions",
+  description:
+    "Review the terms of use for RankNest, including affiliate disclosures and site usage expectations.",
+  alternates: {
+    canonical: "/terms",
+  },
+  openGraph: {
+    title: "Terms & Conditions",
+    description: "Understand how RankNest content, recommendations, and affiliate disclosures are presented.",
+    url: "https://ranknest.tech/terms",
+    type: "website",
+  },
+};
+
 const sections = [
   {
     title: "Use of the Site",

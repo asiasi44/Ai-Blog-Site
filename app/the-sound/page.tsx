@@ -1,6 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 
+export const metadata = {
+  title: "The Sound | RankNest",
+  description:
+    "Explore RankNes's sound and home theater guides, including expert picks for the best soundbar for your room and setup.",
+  alternates: {
+    canonical: "/the-sound",
+  },
+  openGraph: {
+    title: "The Sound | RankNest",
+    description:
+      "Discover soundbar roundups and home theater guides that help you choose a better setup with less confusion.",
+    url: "https://ranknest.tech/the-sound",
+    type: "website",
+  },
+};
+
 const BEST_PRODUCTS = [
   {
     title: "Best Soundbar for Home Theater",

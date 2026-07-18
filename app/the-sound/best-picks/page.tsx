@@ -2,9 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Best Soundbar for Home Theater",
+  title: "Best Soundbar for Home Theater | RankNest",
   description:
     "A cinematic, easy-to-scan guide for picking the best soundbar for home theater setups, from budget to premium picks.",
+  alternates: {
+    canonical: "/the-sound/best-picks",
+  },
+  openGraph: {
+    title: "Best Soundbar for Home Theater | RankNest",
+    description:
+      "Find the best soundbar for home theater setups with clear recommendations for clarity, room fit, and setup ease.",
+    url: "https://ranknest.tech/the-sound/best-picks",
+    type: "website",
+  },
 };
 
 const quickFacts = [

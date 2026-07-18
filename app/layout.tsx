@@ -47,28 +47,41 @@ const manropeFont = Manrope({
 });
 
 export const metadata: Metadata = {
-  applicationName: "Ranknest",
+  metadataBase: new URL(process.env.SITE_URL || "https://ranknest.tech"),
+  applicationName: "RankNest",
   title: {
-    default: "Ranknest — Rank Products by YOUR Priorities",
-    template: "%s | Ranknest",
+    default: "RankNest | Best Soundbars, Home Theater Picks & Product Reviews",
+    template: "%s | RankNest",
   },
   description:
-    "Set your own priorities and see products ranked instantly for what YOU care about. Free, no signup.",
+    "RankNest helps shoppers discover the best soundbars, home theater gear, and product reviews with clear comparisons, expert roundups, and practical buying advice.",
+  keywords: [
+    "best soundbar",
+    "home theater soundbar",
+    "home theater reviews",
+    "audio gear reviews",
+    "movie night audio",
+    "best home theater setup",
+    "product comparison",
+    "honest product reviews",
+    "smart buying guide",
+  ],
+  alternates: {
+    canonical: "/",
+  },
   other: {
     "google-site-verification": "eHK4gnsSuDp43s322_h3gU5BWtKhQBRgj4Bd7wyWT0A",
   },
   appleWebApp: {
-    title: "Ranknest",
+    title: "RankNest",
     capable: true,
   },
-  keywords:
-    "product reviews, amazon affiliate, best gadgets 2025, honest reviews, AI review analysis",
   openGraph: {
-    title: "Ranknest - Honest Product Reviews & Smart Recommendations",
+    title: "RankNest | Best Soundbars, Home Theater Picks & Product Reviews",
     description:
-      "AI-powered product reviews and insights. Make better buying decisions with data, not hype.",
+      "Find the best soundbars and home theater products through honest reviews, curated roundups, and simple comparison guides built for real rooms and real budgets.",
     url: process.env.SITE_URI || "https://ranknest.tech/",
-    siteName: "Ranknest",
+    siteName: "RankNest",
     locale: "en_US",
     type: "website",
     images: [
@@ -79,7 +92,24 @@ export const metadata: Metadata = {
       },
     ],
   },
-  metadataBase: new URL("https://ranknest.tech"),
+  twitter: {
+    card: "summary_large_image",
+    title: "RankNest | Best Home Theater Picks & Product Reviews",
+    description:
+      "Find the best soundbars and home theater products through honest reviews, curated roundups, and simple comparison guides built for real rooms and real budgets.",
+    images: ["/icon.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },

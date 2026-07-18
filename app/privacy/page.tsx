@@ -1,5 +1,20 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "Privacy Policy",
+  description:
+    "Read RankNest’s privacy policy to understand how data is collected, used, and protected.",
+  alternates: {
+    canonical: "/privacy",
+  },
+  openGraph: {
+    title: "Privacy Policy",
+    description: "Learn how RankNest handles your data and privacy choices.",
+    url: "https://ranknest.tech/privacy",
+    type: "website",
+  },
+};
+
 const sections = [
   {
     title: "Information We Collect",

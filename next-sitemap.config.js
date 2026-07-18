@@ -1,9 +1,9 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || "https://ranknest.tech", // 🔁 change to your actual domain when you get one
-  generateRobotsTxt: true, // (optional)
+  siteUrl: process.env.SITE_URL || "https://ranknest.tech",
+  generateRobotsTxt: true,
   sitemapSize: 7000,
-  changefreq: 'daily',
+  changefreq: "daily",
   priority: 0.7,
-  exclude: ['/admin', '/404', '/admin/*', '/product/*'], // optional
+  exclude: ["/admin", "/404", "/admin/*", "/api/*"],
 };

@@ -1,6 +1,16 @@
 export const metadata = {
-  title: "Contact | Product Reviews",
-  description: "Get in touch with us.",
+  title: "Contact RankNest",
+  description:
+    "Get in touch with RankNest for questions, feedback, or collaboration ideas.",
+  alternates: {
+    canonical: "/contact",
+  },
+  openGraph: {
+    title: "Contact RankNest",
+    description: "Reach out with questions, feedback, or partnership ideas.",
+    url: "https://ranknest.tech/contact",
+    type: "website",
+  },
 };
 
 export default function ContactPage() {

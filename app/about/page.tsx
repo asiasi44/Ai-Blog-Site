@@ -1,6 +1,17 @@
 export const metadata = {
-  title: "About | Product Reviews",
-  description: "Learn more about our mission and the story behind Product Reviews.",
+  title: "About RankNest",
+  description:
+    "Learn how RankNest helps people compare products with clear, honest, and easy-to-follow recommendations.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About RankNest",
+    description:
+      "Discover how RankNest turns overwhelming product choices into calm, useful comparisons.",
+    url: "https://ranknest.tech/about",
+    type: "website",
+  },
 };
 
 const points = [

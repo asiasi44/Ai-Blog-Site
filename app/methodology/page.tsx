@@ -1,3 +1,18 @@
+export const metadata = {
+  title: "Methodology",
+  description:
+    "See how RankNest evaluates products, ranks recommendations, and filters out hype for clearer buying decisions.",
+  alternates: {
+    canonical: "/methodology",
+  },
+  openGraph: {
+    title: "Methodology",
+    description: "Understand the criteria RankNest uses to compare products and structure its rankings.",
+    url: "https://ranknest.tech/methodology",
+    type: "website",
+  },
+};
+
 const sections = [
   {
     title: "What we score",
