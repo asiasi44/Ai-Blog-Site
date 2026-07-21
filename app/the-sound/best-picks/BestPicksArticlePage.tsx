@@ -150,7 +150,32 @@ export default function BestPicksArticlePage() {
             </div>
           </div>
         </div>
-
+        <section className="border-[3px] border-slate-900 bg-white p-5 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] md:p-6">
+          <div className="flex flex-wrap items-end justify-between gap-3 border-b border-slate-900 pb-4">
+            <div>
+              <p className="font-mono text-[10px] font-black uppercase tracking-[0.35em] text-slate-500">
+                Watch
+              </p>
+              <h2 className="mt-1 font-anton text-2xl uppercase tracking-[0.16em] text-slate-900">
+                The Full Breakdown
+              </h2>
+            </div>
+          </div>
+          <div className="mt-5 overflow-hidden border border-slate-900">
+            <div
+              className="relative w-full"
+              style={{ paddingBottom: "56.25%" }}
+            >
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                src="https://www.youtube.com/embed/W82tH7bIkdU?start=20"
+                title="Best Soundbar for Home Theater — Full Breakdown"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </section>
         <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
           <section className="border-[3px] border-slate-900 bg-white p-5 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] md:p-6">
             <div className="flex flex-wrap items-end justify-between gap-3 border-b border-slate-900 pb-4">
