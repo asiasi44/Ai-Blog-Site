@@ -127,6 +127,14 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "RankNest",
+  alternateName: ["RankNest Tech", "RankNest.tech"],
+  url: "https://ranknest.tech/",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -134,6 +142,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <GoogleAnalytics gaId="G-Y7BM9SJFY9" />
       <SpeedInsights />
       <Analytics />
