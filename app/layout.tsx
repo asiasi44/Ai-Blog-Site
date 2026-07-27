@@ -127,13 +127,22 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "RankNest",
-  alternateName: ["RankNest Tech", "RankNest.tech"],
-  url: "https://ranknest.tech/",
-};
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "RankNest",
+    alternateName: ["RankNest Tech"],
+    url: "https://ranknest.tech/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "RankNest",
+    url: "https://ranknest.tech/",
+    logo: "https://ranknest.tech/icon.png",
+  },
+];
 
 export default function RootLayout({
   children,
@@ -142,18 +151,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
       <GoogleAnalytics gaId="G-Y7BM9SJFY9" />
       <SpeedInsights />
       <Analytics />
       <body
         className={`${nunito.variable} ${anton.variable} ${caveat.variable} ${geistSans.variable} ${interFont.variable} ${manropeFont.variable} font-geist antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Navbar />
         {children}
         <Footer />
