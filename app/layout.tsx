@@ -141,6 +141,10 @@ const jsonLd = [
     name: "RankNest",
     url: "https://ranknest.tech/",
     logo: "https://ranknest.tech/icon.png",
+    sameAs: [
+      "https://www.youtube.com/@Ranknest-tech",
+      // add any other verifiable owned profiles: X/Twitter, Instagram, etc.
+    ],
   },
 ];
 
