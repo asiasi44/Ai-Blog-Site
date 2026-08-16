@@ -71,6 +71,7 @@ export const metadata: Metadata = {
   },
   other: {
     "google-site-verification": "eHK4gnsSuDp43s322_h3gU5BWtKhQBRgj4Bd7wyWT0A",
+    "msvalidate.01": "5819ED6C8761B0EFBB070F56184DE371",
   },
   appleWebApp: {
     title: "RankNest",
