@@ -3,7 +3,7 @@ import dbConnect from "@/lib/mongoose";
 import AllProduct from "@/models/AllProduct";
 import { ClickLog } from "@/models/ClickLog";
 
-const AFFILIATE_TAG = "soundbar_ranknest-20";
+const AFFILIATE_TAG = "ranknest_track-20";
 
 export async function GET(
   request: NextRequest,
