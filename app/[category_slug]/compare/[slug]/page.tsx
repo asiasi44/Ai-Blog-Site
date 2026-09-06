@@ -6,13 +6,71 @@ import { getAmazonLink } from "@/lib/functions/utils";
 import AllProduct from "@/models/AllProduct";
 import BlogAnalysis from "@/models/BlogAnalysis";
 import ComparisonVoiceover from "@/models/ComparisonVoiceover";
+import "@/models/Category";
 import BackButton from "./BackButton";
 
-export const metadata: Metadata = {
-  title: "Product Comparison | RankNest",
-  description:
-    "Compare product ratings, key features, specifications, and recommendations to choose the right product for you.",
-};
+export const dynamicParams = true;
+
+function formatProductName(slug: string) {
+  return slug
+    .replace(/-B[0-9A-Z]+$/i, "")
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+export async function generateStaticParams() {
+  await dbConnect();
+  const comparisons = await ComparisonVoiceover.find({ status: "completed" })
+    .select("base_product_id compared_product_id")
+    .lean();
+  const productIds = comparisons.flatMap((comparison) => [
+    comparison.base_product_id,
+    comparison.compared_product_id,
+  ]);
+  const products = await AllProduct.find({ _id: { $in: productIds } })
+    .select("_id slug category_id")
+    .populate("category_id", "slug")
+    .lean();
+  const productById = new Map(products.map((product) => [product._id.toString(), product]));
+
+  return comparisons.flatMap((comparison) => {
+    const baseProduct = productById.get(comparison.base_product_id.toString());
+    const comparedProduct = productById.get(comparison.compared_product_id.toString());
+    const categorySlug = baseProduct?.category_id?.slug;
+    if (!baseProduct?.slug || !comparedProduct?.slug || !categorySlug) return [];
+    return [{
+      category_slug: categorySlug,
+      slug: `${baseProduct.slug}--vs--${comparedProduct.slug}`,
+    }];
+  });
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category_slug: string; slug: string }>;
+}): Promise<Metadata> {
+  const { category_slug: categorySlug, slug } = await params;
+  const [baseSlug, comparedSlug] = slug.split("--vs--", 2);
+  const baseName = formatProductName(baseSlug);
+  const comparedName = formatProductName(comparedSlug);
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ranknest.tech";
+  const canonicalUrl = `${baseUrl}/${categorySlug}/compare/${slug}`;
+  const description = `Compare ${baseName} and ${comparedName} ratings, features, specifications, and the final recommendation.`.slice(0, 160).trimEnd();
+
+  return {
+    title: `${baseName} vs ${comparedName} Comparison | RankNest`,
+    description,
+    alternates: { canonical: canonicalUrl },
+    robots: { index: true, follow: true },
+    openGraph: {
+      title: `${baseName} vs ${comparedName} Comparison`,
+      description: `Compare ${baseName} and ${comparedName} across key features and specifications.`,
+      url: canonicalUrl,
+      type: "website",
+    },
+  };
+}
 
 type ComparisonSpec = {
   label: string;
