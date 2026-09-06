@@ -24,6 +24,10 @@ export default function BlogAnalysisComponent({
   const productMeta = generatedArticle?.productMeta;
   const rating = Number(blogAnalysis.overall_rating ?? 0);
   const reviewCount = Number(blogAnalysis.reviewCount ?? 0);
+  const price = productMeta?.price ?? blogAnalysis.price;
+  const maxRating = Number(productMeta?.maxRating ?? 5);
+  const inStock = productMeta?.inStock;
+  const highlights = blogAnalysis.highlights ?? [];
   const specs = productMeta?.specs?.length ? productMeta.specs : blogAnalysis.specifications;
   const pros = productMeta?.pros ?? [];
   const cons = productMeta?.cons ?? [];
@@ -83,8 +87,30 @@ export default function BlogAnalysisComponent({
           {productMeta?.badge || "Customer analysis"}
         </span>
         <h2 className="mt-3 font-anton text-3xl uppercase tracking-wide">{product.name}</h2>
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {specs?.slice(0, 8).map((spec: { label?: string; name?: string; value: string }, index: number) => (
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <MetaValue label="Rating" value={`${rating.toFixed(2)} / ${maxRating}`} emphasis />
+          <MetaValue label="Customer reviews" value={reviewCount ? reviewCount.toLocaleString() : "Not available"} />
+          <MetaValue label="Price" value={price || "Not available"} />
+          <MetaValue label="Availability" value={inStock === undefined ? "Check retailer" : inStock ? "In stock" : "Out of stock"} />
+          <MetaValue label="ASIN" value={product.asin} />
+          <MetaValue label="Brand" value={product.brand || "Not available"} />
+          <MetaValue label="Category" value={product.category || "Not available"} />
+          <MetaValue label="Source" value="Customer analysis" />
+        </div>
+        {highlights.length > 0 && (
+          <div className="mt-6 border-2 border-slate-900 bg-white p-4 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)]">
+            <h3 className="font-anton text-xl uppercase tracking-wide">Key highlights</h3>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {highlights.map((highlight: string, index: number) => (
+                <span key={index} className="border-2 border-slate-900 bg-[#D3F9D8] px-3 py-2 font-mono text-[10px] font-black uppercase tracking-wider">
+                  {highlight}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {specs?.map((spec: { label?: string; name?: string; value: string }, index: number) => (
             <div key={index} className="border-2 border-slate-900 bg-white p-3 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]">
               <span className="block font-mono text-[10px] font-black uppercase text-slate-500">{spec.label || spec.name}</span>
               <span className="text-xs font-bold">{spec.value}</span>
@@ -147,6 +173,23 @@ export default function BlogAnalysisComponent({
         </div>
       )}
     </main>
+  );
+}
+
+function MetaValue({
+  label,
+  value,
+  emphasis = false,
+}: {
+  label: string;
+  value: string;
+  emphasis?: boolean;
+}) {
+  return (
+    <div className={`border-2 border-slate-900 p-3 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] ${emphasis ? "bg-[#93E9BE]" : "bg-white"}`}>
+      <span className="block font-mono text-[10px] font-black uppercase tracking-wider text-slate-500">{label}</span>
+      <span className="mt-1 block break-words text-sm font-bold">{value}</span>
+    </div>
   );
 }
 

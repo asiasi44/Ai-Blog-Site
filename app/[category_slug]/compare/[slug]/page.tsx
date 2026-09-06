@@ -1,11 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
 import dbConnect from "@/lib/mongoose";
 import { getAmazonLink } from "@/lib/functions/utils";
 import AllProduct from "@/models/AllProduct";
 import BlogAnalysis from "@/models/BlogAnalysis";
 import ComparisonVoiceover from "@/models/ComparisonVoiceover";
 import BackButton from "./BackButton";
+
+export const metadata: Metadata = {
+  title: "Product Comparison | RankNest",
+  description:
+    "Compare product ratings, key features, specifications, and recommendations to choose the right product for you.",
+};
 
 type ComparisonSpec = {
   label: string;
