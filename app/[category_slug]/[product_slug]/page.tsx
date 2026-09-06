@@ -8,6 +8,7 @@ import { checkAsin } from "@/lib/functions/checkAsin";
 import BlogAnalysis from "@/models/BlogAnalysis";
 import "@/models/Category";
 import GeneratedArticle from "@/models/GeneratedArticle";
+import { notFound } from "next/navigation";
 
 function toPlain<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
@@ -36,11 +37,11 @@ export async function generateMetadata({
       articleData?.seo?.metaDescription ||
       analysis?.introduction ||
       `Customer analysis and specifications for ${product.name}.`,
-    alternates: {
-      canonical:
-        articleData?.seo?.canonicalUrl ||
-        `${process.env.NEXT_PUBLIC_SITE_URL || "https://ranknest.tech"}/${product_slug}`,
-    },
+    // alternates: {
+    //   canonical:
+    //     articleData?.seo?.canonicalUrl ||
+    //     `${process.env.NEXT_PUBLIC_SITE_URL || "https://ranknest.tech"}/${product_slug}`,
+    // },
   };
 }
 
@@ -56,13 +57,14 @@ export default async function ProductPage({
   }).populate("category_id", "slug category");
 
   if (!allProductRaw) {
-    return (
-      <EmptyProductState
-        title="Product Not Found"
-        message="This product is no longer available in the catalog."
-        categorySlug="unknown"
-      />
-    );
+    notFound();
+    // return (
+    //   <EmptyProductState
+    //     title="Product Not Found"
+    //     message="This product is no longer available in the catalog."
+    //     categorySlug="unknown"
+    //   />
+    // );
   }
 
   const categorySlug = allProductRaw?.category_id?.slug || "unknown";
@@ -142,16 +144,28 @@ function EmptyProductState({
     <main className="min-h-screen bg-[#FFFDF5] px-4 py-12 text-slate-900">
       <div className="mx-auto max-w-4xl">
         <section className="border-4 border-slate-900 bg-[#FFE7A2] p-8 shadow-[8px_8px_0px_0px_rgba(15,23,42,1)]">
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-slate-600">Product catalog</p>
-          <h1 className="mt-3 font-anton text-4xl uppercase tracking-wide">{title}</h1>
-          <p className="mt-4 max-w-xl text-base leading-7 text-slate-700">{message}</p>
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-slate-600">
+            Product catalog
+          </p>
+          <h1 className="mt-3 font-anton text-4xl uppercase tracking-wide">
+            {title}
+          </h1>
+          <p className="mt-4 max-w-xl text-base leading-7 text-slate-700">
+            {message}
+          </p>
           <div className="mt-8 flex flex-wrap gap-3">
             {categorySlug !== "unknown" && (
-              <Link href={`/category/${categorySlug}`} className="border-2 border-slate-900 bg-slate-900 px-4 py-3 font-anton text-sm uppercase tracking-widest text-white shadow-[3px_3px_0px_0px_rgba(15,23,42,1)]">
+              <Link
+                href={`/category/${categorySlug}`}
+                className="border-2 border-slate-900 bg-slate-900 px-4 py-3 font-anton text-sm uppercase tracking-widest text-white shadow-[3px_3px_0px_0px_rgba(15,23,42,1)]"
+              >
                 Back to Category
               </Link>
             )}
-            <Link href="/category" className="border-2 border-slate-900 bg-white px-4 py-3 font-anton text-sm uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(15,23,42,1)]">
+            <Link
+              href="/category"
+              className="border-2 border-slate-900 bg-white px-4 py-3 font-anton text-sm uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(15,23,42,1)]"
+            >
               View All Categories
             </Link>
           </div>
