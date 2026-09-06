@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { checkAsin } from "@/lib/functions/checkAsin";
 import BlogAnalysis from "@/models/BlogAnalysis";
+import "@/models/Category";
 import GeneratedArticle from "@/models/GeneratedArticle";
 
 function toPlain<T>(value: T): T {

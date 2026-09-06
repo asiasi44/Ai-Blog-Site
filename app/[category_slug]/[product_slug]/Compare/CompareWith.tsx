@@ -2,6 +2,7 @@ import Image from "next/image";
 import { checkAsin } from "@/lib/functions/checkAsin";
 import AllProduct from "@/models/AllProduct";
 import BlogAnalysis from "@/models/BlogAnalysis";
+import "@/models/Category";
 import Comparison from "@/models/Comparisons";
 import { Types } from "mongoose";
 import Link from "next/link";
