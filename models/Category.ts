@@ -10,6 +10,7 @@ const categorySchema = new Schema(
         keywords: [String],
       },
     ],
+    slug: String,
     show: Boolean,
   },
   { timestamps: true },

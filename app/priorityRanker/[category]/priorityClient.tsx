@@ -4,6 +4,7 @@ import AdjustFilters from "./filter/adjustFilter";
 import ProductsList from "./list";
 import { useState } from "react";
 import { FeatureType, FeatureWithPriority } from "./type";
+import dbConnect from "@/lib/mongoose";
 
 export default function PriorityClient({
   currentCategory,
@@ -12,9 +13,9 @@ export default function PriorityClient({
   currentCategory: { category: string; _id: string; features: FeatureType[] };
   productsByCategory: ProductType[];
 }) {
-  const [featureWithPriority, setFeatureWithPriority] = useState<FeatureWithPriority[]>(
-    currentCategory.features?.map((f) => ({ ...f, priority: 1 })),
-  );
+  const [featureWithPriority, setFeatureWithPriority] = useState<
+    FeatureWithPriority[]
+  >(currentCategory.features?.map((f) => ({ ...f, priority: 1 })));
 
   const anyBoosted = featureWithPriority.some((f) => f.priority > 1);
 
