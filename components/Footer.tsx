@@ -16,8 +16,36 @@ export default function Footer() {
           <Link href="/terms" className="transition-colors hover:text-rose-500">
             Terms & Conditions
           </Link>
-          <Link href="/privacy" className="transition-colors hover:text-rose-500">
+          <Link
+            href="/privacy"
+            className="transition-colors hover:text-rose-500"
+          >
             Privacy Policy
+          </Link>
+        </div>
+      </div>
+      <div className="border-t border-slate-200">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-5 gap-y-3 px-4 py-4 font-sans text-sm font-semibold uppercase tracking-[0.2em] text-slate-700 md:px-8 lg:px-10">
+          <Link href="/category" className="transition-colors hover:text-rose-500">
+            Categories
+          </Link>
+          <Link
+            href="/category/soundbar"
+            className="transition-colors hover:text-rose-500"
+          >
+            Soundbars
+          </Link>
+          <Link
+            href="/category/stereo-integrated-amplifier"
+            className="transition-colors hover:text-rose-500"
+          >
+            Stereo Integrated Amplifiers
+          </Link>
+          <Link
+            href="/category/robotic-pool-cleaner"
+            className="transition-colors hover:text-rose-500"
+          >
+            Robotic Pool Cleaners
           </Link>
         </div>
       </div>
