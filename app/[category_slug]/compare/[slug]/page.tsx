@@ -54,12 +54,12 @@ export async function generateMetadata({
   const [baseSlug, comparedSlug] = slug.split("--vs--", 2);
   const baseName = formatProductName(baseSlug);
   const comparedName = formatProductName(comparedSlug);
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ranknest.tech";
+  const baseUrl = process.env.SITE_URL || "https://ranknest.tech";
   const canonicalUrl = `${baseUrl}/${categorySlug}/compare/${slug}`;
   const description = `Compare ${baseName} and ${comparedName} ratings, features, specifications, and the final recommendation.`.slice(0, 160).trimEnd();
 
   return {
-    title: `${baseName} vs ${comparedName} Comparison | RankNest`,
+    title: `${baseName} vs ${comparedName} Comparison`,
     description,
     alternates: { canonical: canonicalUrl },
     robots: { index: true, follow: true },
