@@ -4,6 +4,17 @@ import Category from "@/models/Category";
 import ProductBox from "./ProductBox/ProductBox";
 import Link from "next/link";
 
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  await dbConnect();
+  const categories = await Category.find({ slug: { $exists: true, $ne: null } })
+    .select("slug")
+    .lean();
+
+  return categories.map((category) => ({ slug: category.slug }));
+}
+
 export default async function SpecificCategory({
   params,
   searchParams,

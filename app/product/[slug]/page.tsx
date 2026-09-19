@@ -11,7 +11,7 @@ import { notFound } from "next/navigation";
 // Revalidate every 1 hour
 export const revalidate = 3600;
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 const PUBLIC_STATUSES = ["legacy", "published"];
 

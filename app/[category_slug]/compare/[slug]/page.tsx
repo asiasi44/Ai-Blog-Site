@@ -8,7 +8,9 @@ import BlogAnalysis from "@/models/BlogAnalysis";
 import ComparisonVoiceover from "@/models/ComparisonVoiceover";
 import "@/models/Category";
 import BackButton from "./BackButton";
+import YouTubeNewsletterPopup from "@/components/YouTubeNewsletterPopup";
 
+export const revalidate = 3600;
 export const dynamicParams = true;
 
 function formatProductName(slug: string) {
@@ -175,7 +177,8 @@ export default async function CompareProducts({
   const winningLinks = finalSection?.productA.isWinner ? linksA : linksB;
 
   return (
-    <main className="min-h-screen bg-[#FFFDF5] px-4 py-8 text-slate-900 md:px-8">
+    <>
+      <main className="min-h-screen bg-[#FFFDF5] px-4 py-8 text-slate-900 md:px-8">
       <div className="mx-auto max-w-7xl">
         <Link
           href={`/category/${categorySlug}`}
@@ -252,7 +255,9 @@ export default async function CompareProducts({
           </section>
         )}
       </div>
-    </main>
+      </main>
+      <YouTubeNewsletterPopup />
+    </>
   );
 }
 

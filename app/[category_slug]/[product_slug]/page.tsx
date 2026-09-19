@@ -9,6 +9,26 @@ import BlogAnalysis from "@/models/BlogAnalysis";
 import "@/models/Category";
 import GeneratedArticle from "@/models/GeneratedArticle";
 import { notFound } from "next/navigation";
+import YouTubeNewsletterPopup from "@/components/YouTubeNewsletterPopup";
+
+export const revalidate = 3600;
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  await dbConnect();
+  const products = await AllProduct.find({ slug: { $exists: true, $ne: null } })
+    .select("slug category_id")
+    .populate("category_id", "slug")
+    .lean();
+
+  return products.map((product) => ({
+    category_slug:
+      typeof product.category_id === "object" && product.category_id
+        ? (product.category_id as { slug?: string }).slug || "unknown"
+        : "unknown",
+    product_slug: product.slug,
+  }));
+}
 
 function toPlain<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
@@ -125,6 +145,7 @@ export default async function ProductPage({
       <div className="mx-auto max-w-6xl px-4 pb-12">
         <CompareWith id={allProductRaw._id.toString()} />
       </div>
+      <YouTubeNewsletterPopup />
     </div>
   );
 }
@@ -176,6 +197,7 @@ function EmptyProductState({
           </div>
         )}
       </div>
+      <YouTubeNewsletterPopup />
     </main>
   );
 }
