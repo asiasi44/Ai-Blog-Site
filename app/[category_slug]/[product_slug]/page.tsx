@@ -93,7 +93,7 @@ export default async function ProductPage({
     return (
       <EmptyProductState
         title={allProductRaw.name}
-        message="This product does not have an Amazon listing yet, but it is still part of this category."
+        message="This product does not have a listing yet, but it is still part of this category."
         categorySlug={categorySlug}
         productId={allProductRaw._id.toString()}
       />

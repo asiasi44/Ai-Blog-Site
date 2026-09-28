@@ -130,7 +130,8 @@ export default async function CompareProducts({
 
   const asins = products.map((product) => product.asin).filter(Boolean);
   if (asins.length < 2) {
-    return <ComparisonMessage message="One or both products were not found." />;
+    const fallback = await getComparisonFallback(categorySlug, baseSlug);
+    return <ComparisonMessage message="One or both products were not found." {...fallback} />;
   }
 
   const [asinA, asinB] = asins;
@@ -142,7 +143,8 @@ export default async function CompareProducts({
   }).lean();
 
   if (!comparisonData) {
-    return <ComparisonMessage message="This comparison is not available yet." />;
+    const fallback = await getComparisonFallback(categorySlug, baseSlug);
+    return <ComparisonMessage message="This comparison is not available yet." {...fallback} />;
   }
 
   const comparison = comparisonData as unknown as ComparisonRecord;
@@ -158,7 +160,8 @@ export default async function CompareProducts({
     sections.find((section) => section.isVerdict) || sections[sections.length - 1];
 
   if (!firstSection) {
-    return <ComparisonMessage message="This comparison does not have any sections yet." />;
+    const fallback = await getComparisonFallback(categorySlug, baseSlug);
+    return <ComparisonMessage message="This comparison does not have any sections yet." {...fallback} />;
   }
 
   const allProducts = products as unknown as AllProductRecord[];
@@ -428,12 +431,130 @@ function getProductLinks(
   };
 }
 
-function ComparisonMessage({ message }: { message: string }) {
+type FallbackProduct = {
+  _id: { toString(): string };
+  name: string;
+  slug: string;
+  asin?: string;
+  category_id?: { slug?: string };
+  image?: string;
+};
+
+async function getComparisonFallback(categorySlug: string, firstSlug: string) {
+  const anchorProduct = await AllProduct.findOne({ slug: firstSlug })
+    .select("name slug asin parent_id category_id")
+    .populate("category_id", "slug")
+    .lean();
+
+  let relatedProducts: FallbackProduct[] = [];
+  if (anchorProduct) {
+    const anchor = anchorProduct as unknown as FallbackProduct & { parent_id?: string };
+    const anchorSlug = anchor.slug;
+    const [parent, children] = await Promise.all([
+      anchor.parent_id
+        ? AllProduct.findOne({ slug: anchor.parent_id })
+            .select("name slug asin category_id")
+            .populate("category_id", "slug")
+            .lean()
+        : null,
+      AllProduct.find({ parent_id: anchor.slug })
+        .select("name slug asin category_id")
+        .populate("category_id", "slug")
+        .sort({ name: 1 })
+        .lean(),
+    ]);
+    relatedProducts = [
+      ...(parent ? [parent as unknown as FallbackProduct] : []),
+      ...(children as unknown as FallbackProduct[]),
+    ].filter((product) => product.slug && product.slug !== anchorSlug);
+
+    const relatedAsins = relatedProducts.map((product) => product.asin).filter(Boolean);
+    const analyses = relatedAsins.length
+      ? await BlogAnalysis.find({ asin: { $in: relatedAsins } }).select("asin image").lean()
+      : [];
+    const imageByAsin = new Map(
+      analyses.map((analysis) => [analysis.asin, analysis.image ? String(analysis.image) : undefined]),
+    );
+    relatedProducts = relatedProducts.map((product) => ({
+      ...product,
+      image: product.asin ? imageByAsin.get(product.asin) : undefined,
+    }));
+  }
+
+  return {
+    categorySlug: anchorProduct?.category_id?.slug || categorySlug,
+    relatedProducts,
+  };
+}
+
+function ComparisonMessage({
+  message,
+  categorySlug,
+  relatedProducts,
+}: {
+  message: string;
+  categorySlug: string;
+  relatedProducts: FallbackProduct[];
+}) {
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#FFFDF5] px-4 text-slate-900">
-      <section className="border-4 border-slate-900 bg-[#FFE7A2] p-8 shadow-[8px_8px_0px_0px_rgba(15,23,42,1)]">
+      <section className="my-8 w-full max-w-4xl border-4 border-slate-900 bg-[#FFE7A2] p-6 shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] md:p-8">
         <h1 className="font-anton text-3xl uppercase">{message}</h1>
         <BackButton />
+        <Link
+          href={`/category/${categorySlug}`}
+          className="ml-3 mt-6 inline-block border-2 border-slate-900 bg-white px-4 py-3 font-anton text-sm uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] transition-transform hover:-translate-y-0.5"
+        >
+          Browse products
+        </Link>
+
+        {relatedProducts.length > 0 && (
+          <section className="mt-8 border-t-4 border-slate-900 pt-6">
+            <header className="border-4 border-slate-900 bg-slate-900 p-5 text-white">
+              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#FFE7A2]">
+                Keep exploring
+              </p>
+              <h2 className="mt-2 font-anton text-3xl uppercase tracking-wide">
+                Related products
+              </h2>
+              <p className="mt-2 text-sm text-slate-300">
+                Explore related products in this category.
+              </p>
+            </header>
+            <div className="mt-5 space-y-3">
+              {relatedProducts.map((product) => (
+                <div
+                  key={product._id.toString()}
+                  className="border-2 border-slate-900 bg-white p-4 shadow-[3px_3px_0px_0px_rgba(15,23,42,1)]"
+                >
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex min-w-0 items-center gap-4">
+                      <div className="relative h-20 w-20 shrink-0 overflow-hidden border-2 border-slate-900 bg-[#FFFDF5]">
+                        {product.image ? (
+                          <Image src={product.image} alt={product.name} fill unoptimized className="object-contain p-2" />
+                        ) : (
+                          <div className="flex h-full items-center justify-center p-2 text-center font-mono text-[8px] font-black uppercase leading-tight text-slate-400">
+                            No image
+                          </div>
+                        )}
+                      </div>
+                      <h3 className="font-anton text-lg uppercase leading-tight">
+                        {product.name}
+                      </h3>
+                    </div>
+                    <Link
+                      href={`/${product.category_id?.slug || categorySlug}/${product.slug}`}
+                      className="border-2 border-slate-900 bg-slate-900 px-3 py-2 text-center font-anton text-xs uppercase tracking-widest text-white shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] transition-transform hover:-translate-y-0.5"
+                    >
+                      Review
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
       </section>
     </main>
   );
