@@ -24,11 +24,13 @@ export default function BlogAnalysisComponent({
   const productMeta = generatedArticle?.productMeta;
   const rating = Number(blogAnalysis.overall_rating ?? 0);
   const reviewCount = Number(blogAnalysis.reviewCount ?? 0);
-  const price = productMeta?.price ?? blogAnalysis.price;
   const maxRating = Number(productMeta?.maxRating ?? 5);
   const inStock = productMeta?.inStock;
   const highlights = blogAnalysis.highlights ?? [];
-  const specs = productMeta?.specs?.length ? productMeta.specs : blogAnalysis.specifications;
+  const specs = (productMeta?.specs?.length ? productMeta.specs : blogAnalysis.specifications)?.filter(
+    (spec: { label?: string; name?: string }) =>
+      !/price|pricing|cost|msrp|retail/i.test(spec.label || spec.name || ""),
+  ).slice(0, 8);
   const pros = productMeta?.pros ?? [];
   const cons = productMeta?.cons ?? [];
   const sections = articleData?.sections ?? [];
@@ -77,7 +79,7 @@ export default function BlogAnalysisComponent({
             )}
           </div>
           <Link href={product.affiliateUrl} target="_blank" className="mt-4 block border-2 border-slate-900 bg-[#93E9BE] px-4 py-3 text-center font-anton text-sm uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(15,23,42,1)]">
-            Check Current Price on Amazon ↗
+            View on Amazon ↗
           </Link>
         </div>
       </header>
@@ -90,9 +92,7 @@ export default function BlogAnalysisComponent({
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <MetaValue label="Rating" value={`${rating.toFixed(2)} / ${maxRating}`} emphasis />
           <MetaValue label="Customer reviews" value={reviewCount ? reviewCount.toLocaleString() : "Not available"} />
-          <MetaValue label="Price" value={price || "Not available"} />
           <MetaValue label="Availability" value={inStock === undefined ? "Check retailer" : inStock ? "In stock" : "Out of stock"} />
-          <MetaValue label="ASIN" value={product.asin} />
           <MetaValue label="Brand" value={product.brand || "Not available"} />
           <MetaValue label="Category" value={product.category || "Not available"} />
           <MetaValue label="Source" value="Customer analysis" />

@@ -4,6 +4,7 @@ import AllProduct from "@/models/AllProduct";
 import BlogAnalysis from "@/models/BlogAnalysis";
 import "@/models/Category";
 import Comparison from "@/models/Comparisons";
+import ComparisonVoiceover from "@/models/ComparisonVoiceover";
 import { Types } from "mongoose";
 import Link from "next/link";
 
@@ -33,7 +34,7 @@ export default async function CompareWith({ id }: { id: string }) {
     .lean()) as unknown as PopulatedComparison[];
 
   const allProductRaw = await AllProduct.findById(id)
-    .select("name parent_id")
+    .select("name parent_id asin")
     .populate("category_id", "slug")
     .lean();
 
@@ -53,11 +54,31 @@ export default async function CompareWith({ id }: { id: string }) {
   })
     .select("asin image")
     .lean();
+  const analyzedAsins = new Set(relatedAnalyses.map((analysis) => analysis.asin));
   const imageByAsin = new Map(
     relatedAnalyses.map((analysis) => [
       analysis.asin,
       analysis.image ? String(analysis.image) : undefined,
     ]),
+  );
+  const comparisonFilters = comparisons.flatMap((comparison) => {
+    const baseAsin = allProductRaw.asin;
+    const comparedAsin = comparison.compared_product.asin;
+    if (!baseAsin || !comparedAsin) return [];
+    return [
+      { base_asin: baseAsin, compared_asin: comparedAsin },
+      { base_asin: comparedAsin, compared_asin: baseAsin },
+    ];
+  });
+  const comparisonRecords = comparisonFilters.length
+    ? await ComparisonVoiceover.find({ $or: comparisonFilters })
+        .select("base_asin compared_asin sections")
+        .lean()
+    : [];
+  const availableComparisonKeys = new Set(
+    comparisonRecords
+      .filter((comparison) => comparison.sections?.length)
+      .map((comparison) => getComparisonKey(comparison.base_asin, comparison.compared_asin)),
   );
 
   return (
@@ -90,7 +111,7 @@ export default async function CompareWith({ id }: { id: string }) {
               href={`/${categorySlug}/${parentProduct?.slug}`}
               className="border-2 border-slate-900 bg-slate-900 px-3 py-2 text-center font-anton text-xs uppercase tracking-widest text-white shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] transition-transform hover:-translate-y-0.5"
             >
-              Review
+              {analyzedAsins.has(parentProduct?.asin) ? "Review" : "Browse similar products"}
             </Link>
           </div>
         </div>
@@ -100,6 +121,11 @@ export default async function CompareWith({ id }: { id: string }) {
         <div className="mt-5 space-y-3">
           {comparisons.map((eachComparison) => {
             const asin = checkAsin(eachComparison.compared_product.asin);
+            const comparisonKey = getComparisonKey(
+              allProductRaw.asin,
+              eachComparison.compared_product.asin,
+            );
+            const comparisonHref = `/${categorySlug}/compare/${eachComparison.base_product.slug}--vs--${eachComparison.compared_product.slug}`;
             return (
               <div
                 key={eachComparison._id.toString()}
@@ -122,16 +148,24 @@ export default async function CompareWith({ id }: { id: string }) {
                       href={`/${categorySlug}/${eachComparison.compared_product.slug}`}
                       className="border-2 border-slate-900 bg-white px-3 py-2 font-anton text-xs uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] transition-colors hover:bg-[#FFE7A2]"
                     >
-                      Review
+                      {analyzedAsins.has(eachComparison.compared_product.asin) ? "Review" : "Browse similar products"}
                     </Link>
-                    {asin && (
+                    {asin && availableComparisonKeys.has(comparisonKey) ? (
                       <Link
-                        href={`/${categorySlug}/compare/${eachComparison.base_product.slug}--vs--${eachComparison.compared_product.slug}`}
+                        href={comparisonHref}
                         className="border-2 border-slate-900 bg-[#93E9BE] px-3 py-2 font-anton text-xs uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] transition-transform hover:-translate-y-0.5"
                       >
                         Compare
                       </Link>
-                    )}
+                    ) : asin ? (
+                      <span
+                        aria-disabled="true"
+                        title="Comparison unavailable"
+                        className="cursor-not-allowed border-2 border-slate-900 bg-[#93E9BE] px-3 py-2 font-anton text-xs uppercase tracking-widest opacity-50"
+                      >
+                        Compare
+                      </span>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -141,6 +175,10 @@ export default async function CompareWith({ id }: { id: string }) {
       )}
     </section>
   );
+}
+
+function getComparisonKey(firstAsin?: string, secondAsin?: string) {
+  return [firstAsin || "", secondAsin || ""].sort().join("::");
 }
 
 function ProductImage({ src, alt }: { src?: string; alt: string }) {

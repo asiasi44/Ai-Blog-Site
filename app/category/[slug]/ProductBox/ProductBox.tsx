@@ -11,7 +11,6 @@ interface Product {
     image?: string;
     overall_rating?: number;
     reviewCount?: number;
-    price?: string;
   } | null;
 }
 
@@ -24,7 +23,7 @@ interface ProductBoxProps {
 export default async function ProductBox({ products, slug, initialBrand }: ProductBoxProps) {
   const asins = products.map((p) => p.asin);
   const blogAnalyses = await BlogAnalysis.find({ asin: { $in: asins } })
-    .select("asin image overall_rating reviewCount price")
+    .select("asin image overall_rating reviewCount")
     .lean();
   const analysisMap = new Map(
     blogAnalyses.map((item) => [
@@ -35,7 +34,6 @@ export default async function ProductBox({ products, slug, initialBrand }: Produ
           item.overall_rating == null ? undefined : Number(item.overall_rating),
         reviewCount:
           item.reviewCount == null ? undefined : Number(item.reviewCount),
-        price: item.price == null ? undefined : String(item.price),
       },
     ]),
   );

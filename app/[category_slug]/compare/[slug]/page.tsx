@@ -382,7 +382,7 @@ function ProductComparisonPanel({
         </span>
       </div>
       <div className="mt-5 grid gap-2">
-        {product.specs.map((spec) => (
+        {product.specs.filter((spec) => !/price|pricing|cost|msrp|retail/i.test(spec.label)).map((spec) => (
           <div
             key={`${spec.label}-${spec.value}`}
             className={`flex items-start justify-between gap-4 border-2 border-slate-900 p-3 text-sm ${

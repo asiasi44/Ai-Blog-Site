@@ -14,7 +14,6 @@ type Product = {
     image?: string;
     overall_rating?: number;
     reviewCount?: number;
-    price?: string;
   } | null;
 };
 
@@ -122,7 +121,6 @@ export default function ProductCatalog({ products, slug, initialBrand }: { produ
                 <div className="mt-5 border-t-2 border-slate-900 pt-4 text-sm">
                   <p>Rating: {product.analysis?.overall_rating ?? "Not available"}</p>
                   <p>Reviews: {product.analysis?.reviewCount?.toLocaleString() ?? "Not available"}</p>
-                  {product.analysis?.price && <p>Price: {product.analysis.price}</p>}
                 </div>
               </Link>
             ))}
