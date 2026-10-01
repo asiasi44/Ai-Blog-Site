@@ -249,8 +249,8 @@ export default async function CompareProducts({
                   <Link href={winningLinks.reviewHref} className="border-2 border-slate-900 bg-slate-900 px-3 py-2 font-mono text-[10px] font-black uppercase tracking-widest text-white">
                     Read review
                   </Link>
-                  <Link href={winningLinks.amazonHref} target="_blank" rel="noreferrer" className="border-2 border-slate-900 bg-white px-3 py-2 font-mono text-[10px] font-black uppercase tracking-widest">
-                    Amazon ↗
+                  <Link href={winningLinks.amazonHref} target="_blank" rel="noreferrer" className="cursor-pointer border-2 border-slate-900 bg-[#FFE7A2] px-3 py-2 font-mono text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-amber-300 hover:shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] active:translate-y-0 active:shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2">
+                    Check Price on Amazon↗
                   </Link>
                 </div>
               </div>
@@ -297,8 +297,8 @@ function WinnerSummary({
           <Link href={links.reviewHref} className="border-2 border-slate-900 bg-slate-900 px-2 py-1 font-mono text-[10px] font-black uppercase tracking-widest text-white">
             Review
           </Link>
-          <Link href={links.amazonHref} target="_blank" rel="noreferrer" className="border-2 border-slate-900 bg-white px-2 py-1 font-mono text-[10px] font-black uppercase tracking-widest">
-            Amazon ↗
+          <Link href={links.amazonHref} target="_blank" rel="noreferrer" className="cursor-pointer border-2 border-slate-900 bg-[#FFE7A2] px-3 py-2 font-mono text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-amber-300 hover:shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] active:translate-y-0 active:shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2">
+            Check Price on Amazon ↗
           </Link>
         </div>
       </div>
@@ -400,8 +400,8 @@ function ProductComparisonPanel({
         <Link href={links.reviewHref} className="border-2 border-slate-900 bg-slate-900 px-3 py-2 font-mono text-[10px] font-black uppercase tracking-widest text-white">
           Read review
         </Link>
-        <Link href={links.amazonHref} target="_blank" rel="noreferrer" className="border-2 border-slate-900 bg-[#FFE7A2] px-3 py-2 font-mono text-[10px] font-black uppercase tracking-widest">
-          View on Amazon ↗
+        <Link href={links.amazonHref} target="_blank" rel="noreferrer" className="cursor-pointer border-2 border-slate-900 bg-[#FFE7A2] px-3 py-2 font-mono text-[10px] font-black uppercase tracking-widest transition-all duration-200 hover:-translate-y-0.5 hover:bg-amber-300 hover:shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] active:translate-y-0 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2">
+          Check Price on Amazon ↗
         </Link>
       </div>
       {product.isWinner && (

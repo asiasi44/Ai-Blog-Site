@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getAmazonLink } from "@/lib/functions/utils";
 
 type ProductIdentity = {
   name: string;
@@ -78,8 +79,13 @@ export default function BlogAnalysisComponent({
               <div className="flex h-full items-center justify-center p-8 text-center font-anton text-2xl uppercase">Image unavailable</div>
             )}
           </div>
-          <Link href={product.affiliateUrl} target="_blank" className="mt-4 block border-2 border-slate-900 bg-[#93E9BE] px-4 py-3 text-center font-anton text-sm uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(15,23,42,1)]">
-            View on Amazon ↗
+          <Link
+            href={product.asin ? getAmazonLink(product.asin) : product.affiliateUrl || "#"}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="mt-4 block cursor-pointer border-2 border-slate-900 bg-[#93E9BE] px-4 py-3 text-center font-anton text-sm uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-emerald-300 hover:shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] active:translate-y-0 active:shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
+          >
+            Check Price on Amazon ↗
           </Link>
         </div>
       </header>

@@ -24,10 +24,10 @@ export default function AffiliateLink({
   showIcon = true,
   disclosure = "compact",
 }: AffiliateLinkProps) {
-  const baseClassName = "inline-flex items-center gap-2 transition-all duration-200";
+  const baseClassName = "inline-flex items-center gap-2 cursor-pointer transition-all duration-200";
 
   const variantStyles = {
-    button: `px-6 py-3 rounded-full font-semibold text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2`,
+    button: `px-6 py-3 rounded-full font-semibold text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 hover:brightness-110 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2`,
     inline: `text-blue-600 font-medium underline hover:text-blue-700`,
     badge: `px-4 py-2 rounded-full text-sm font-semibold bg-amber-50 text-amber-700 border-2 border-amber-200 hover:border-amber-400`,
   };

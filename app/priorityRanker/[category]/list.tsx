@@ -284,7 +284,7 @@ export default function ProductsList({
                     variant="button"
                     className="w-full justify-center"
                   >
-                    View on Amazon
+                    Check Price on Amazon
                   </AffiliateLink>
                 </div>
               )}
@@ -381,7 +381,7 @@ export default function ProductsList({
                     variant="button"
                     className="flex-1 justify-center"
                   >
-                    View on Amazon
+                    Check Price on Amazon
                   </AffiliateLink>
                   <Link
                     href={`/product/${product.slug || product.asin}`}

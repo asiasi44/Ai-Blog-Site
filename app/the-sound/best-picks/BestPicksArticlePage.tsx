@@ -234,7 +234,7 @@ export default function BestPicksArticlePage() {
                           className="px-3 py-2 text-[11px] font-anton uppercase tracking-[0.2em]"
                           disclosure="compact"
                         >
-                          Amazon
+                          Check Price on Amazon
                         </AffiliateLink>
                         <Link
                           href={`/product/${pick.productSlug}`}

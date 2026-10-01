@@ -29,7 +29,7 @@ const sections = [
   {
     title: "Cookies and Analytics",
     body:
-      "We use cookies and analytics tools to understand traffic patterns, improve site performance, and personalize your experience. You can manage or disable cookies through your browser settings.",
+      "We use a lightweight cookie notice and simple analytics to understand traffic patterns, improve the site, and measure Amazon affiliate clicks. When you click an Amazon product button, we may record the product, referrer, time of click, browser information, country, and IP address to measure affiliate-link activity. We also use a persistent visitor_id cookie for click attribution. You can manage or disable cookies through your browser settings.",
   },
   {
     title: "Your Choices",

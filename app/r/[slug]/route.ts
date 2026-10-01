@@ -47,26 +47,42 @@ export async function GET(
     }
   }
 
-  await dbConnect();
-  const product = await AllProduct.findOne({ slug }).lean();
-  const asin = product?.asin;
+  const fallbackAsin = /^[A-Z0-9]{10}$/i.test(slug) ? slug : null;
+  let product = null;
+  let asin = fallbackAsin;
+
+  try {
+    await dbConnect();
+    product = await AllProduct.findOne({
+      $or: [{ slug }, { asin: slug }],
+    }).lean();
+    asin = product?.asin ?? asin;
+  } catch (error) {
+    console.warn("Affiliate click logging unavailable; continuing with direct redirect.", error);
+  }
 
   if (!asin) {
     return NextResponse.redirect("https://www.amazon.com", 302);
   }
 
-  // 3. Log with Visitor ID
-  ClickLog.create({
-    slug,
-    asin,
-    refSource,
-    videoId,
-    visitorId,
-    country,
-    userAgent,
-    ip,
-    timestamp: new Date(),
-  }).catch((err) => console.error("Logging Error:", err));
+  // 3. Log with Visitor ID when database connectivity is available.
+  if (process.env.MONGODB_URI) {
+    try {
+      await ClickLog.create({
+        slug: product?.slug ?? slug,
+        asin,
+        refSource,
+        videoId,
+        visitorId,
+        country,
+        userAgent,
+        ip,
+        timestamp: new Date(),
+      });
+    } catch (err) {
+      console.error("Logging Error:", err);
+    }
+  }
 
   // 4. Construct Redirect Response & Set Cookie
   const amazonUrl = `https://www.amazon.com/dp/${asin}?tag=${AFFILIATE_TAG}`;

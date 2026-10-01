@@ -68,7 +68,7 @@ export default function ProductPageById({
           variant="button"
           className="w-full justify-center text-base"
         >
-          Buy on Amazon Now
+          Check Price on Amazon
         </AffiliateLink>
       </div>
 
@@ -254,7 +254,7 @@ export default function ProductPageById({
               disclosure="compact"
               className="!text-base sm:!text-lg"
             >
-              View on Amazon to See All Reviews
+              See All Reviews on Amazon
             </AffiliateLink>
           </div>
         </div>

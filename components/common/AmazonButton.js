@@ -4,7 +4,7 @@ import { getAmazonLink } from '@/lib/functions/utils'; // Import the helper func
 
 // A reusable button component for Amazon links.
 const AmazonButton = ({ asin, className = "", size = "normal", variant = "primary" }) => {
-  const baseClasses = "inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg";
+  const baseClasses = "inline-flex cursor-pointer items-center justify-center font-semibold rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2";
   
   const sizeClasses = {
     small: "px-4 py-2 text-sm",
@@ -20,13 +20,13 @@ const AmazonButton = ({ asin, className = "", size = "normal", variant = "primar
 
   return (
     <a
-      href={asin ? getAmazonLink(productData.asin) : "#"}
+      href={asin ? getAmazonLink(asin) : "#"}
       target="_blank"
       rel="noopener noreferrer"
       className={`${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
     >
       <ShoppingCart className="w-5 h-5 mr-2" />
-      View on Amazon
+      Check Price on Amazon
       <ExternalLink className="w-4 h-4 ml-2" />
     </a>
   );

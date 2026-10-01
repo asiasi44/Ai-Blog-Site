@@ -14,6 +14,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/Footer";
+import CookieNotice from "@/components/CookieNotice";
 
 const anton = Anton({
   weight: "400",
@@ -167,6 +168,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <CookieNotice />
         <Toaster position="top-right" />
       </body>
     </html>
