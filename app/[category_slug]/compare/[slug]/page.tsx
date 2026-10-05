@@ -10,6 +10,7 @@ import "@/models/Category";
 import BackButton from "./BackButton";
 import YouTubeNewsletterPopup from "@/components/YouTubeNewsletterPopup";
 import ProductVideo from "@/components/ProductVideo";
+import SimilarComparisons from "../SimilarComparisons";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -290,6 +291,7 @@ export default async function CompareProducts({
             </div>
           </section>
         )}
+        <SimilarComparisons asins={[asinA, asinB]} categorySlug={categorySlug} />
       </div>
       </main>
       <YouTubeNewsletterPopup />
