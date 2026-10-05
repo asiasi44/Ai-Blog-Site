@@ -1,6 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getAmazonLink } from "@/lib/functions/utils";
+import ProductVideo from "@/components/ProductVideo";
+
+type VideoChapter = {
+  timestamp: string;
+  title: string;
+};
+
+type ProductVideoMetadata = {
+  videoId: string;
+  chapters: VideoChapter[];
+};
 
 type ProductIdentity = {
   name: string;
@@ -15,10 +26,12 @@ type ProductIdentity = {
 export default function BlogAnalysisComponent({
   blogAnalysis,
   generatedArticle,
+  videoMetadata,
   product,
 }: {
   blogAnalysis: any;
   generatedArticle: any;
+  videoMetadata?: ProductVideoMetadata;
   product: ProductIdentity;
 }) {
   const articleData = generatedArticle?.articleData;
@@ -36,6 +49,8 @@ export default function BlogAnalysisComponent({
   const cons = productMeta?.cons ?? [];
   const sections = articleData?.sections ?? [];
   const faqs = articleData?.faqs ?? [];
+  const introduction = blogAnalysis.introduction?.trim();
+  const finalVerdict = blogAnalysis.final_verdict?.trim();
 
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 md:px-8">
@@ -67,9 +82,11 @@ export default function BlogAnalysisComponent({
               {reviewCount.toLocaleString()} customer reviews
             </span>
           </div>
-          <p className="mt-8 max-w-2xl text-base leading-7 text-slate-200">
-            {articleData?.summaryVerdict || blogAnalysis.introduction || blogAnalysis.final_verdict}
-          </p>
+          {(articleData?.summaryVerdict || introduction) && (
+            <p className="mt-8 max-w-2xl text-base leading-7 text-slate-200">
+              {articleData?.summaryVerdict || introduction}
+            </p>
+          )}
         </div>
         <div className="border-t-4 border-slate-900 bg-[#FFE7A2] p-4 lg:border-l-4 lg:border-t-0">
           <div className="relative aspect-square overflow-hidden border-2 border-slate-900 bg-white shadow-[4px_4px_0px_0px_rgba(15,23,42,1)]">
@@ -89,6 +106,21 @@ export default function BlogAnalysisComponent({
           </Link>
         </div>
       </header>
+
+      {videoMetadata && (
+        <ProductVideo
+          videoId={videoMetadata.videoId}
+          title={`${product.title} video review`}
+          chapters={videoMetadata.chapters}
+        />
+      )}
+
+      {finalVerdict && (
+        <section className="border-4 border-slate-900 bg-[#93E9BE] p-6 shadow-[8px_8px_0px_0px_rgba(15,23,42,1)]">
+          <h2 className="font-anton text-2xl uppercase tracking-wide">Final Verdict</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-800">{finalVerdict}</p>
+        </section>
+      )}
 
       <section className="border-4 border-slate-900 bg-[#FFE7A2] p-6 shadow-[8px_8px_0px_0px_rgba(15,23,42,1)]">
         <span className="border-2 border-slate-900 bg-slate-900 px-3 py-1 font-mono text-xs font-black uppercase tracking-widest text-white">

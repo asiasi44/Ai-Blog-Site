@@ -70,7 +70,7 @@ export default async function ProductPage({
 }: {
   params: Promise<{ product_slug: string }>;
 }) {
-  await dbConnect();
+  const mongooseConnection = await dbConnect();
   const { product_slug } = await params;
   const allProductRaw = await AllProduct.findOne({
     slug: product_slug,
@@ -99,6 +99,19 @@ export default async function ProductPage({
       />
     );
   }
+  const metadataCollection = mongooseConnection.connection.db?.collection("metadatas_v2");
+  const videoMetadata = metadataCollection
+    ? await metadataCollection.findOne(
+        {
+          $or: [
+            { product: allProductRaw._id },
+            { asin: allProductRaw.asin },
+          ],
+          videoId: { $type: "string", $ne: "" },
+        },
+        { projection: { videoId: 1, chapters: 1 } },
+      )
+    : null;
   const [blogAnalysisRaw, generatedArticleRaw] = await Promise.all([
     BlogAnalysis.findOne({ asin: allProductRaw.asin }).lean(),
     GeneratedArticle.findOne({ asin: allProductRaw.asin }).lean(),
@@ -131,6 +144,16 @@ export default async function ProductPage({
       <BlogAnalysisComponent
         blogAnalysis={blogAnalysis}
         generatedArticle={generatedArticle}
+        videoMetadata={
+          typeof videoMetadata?.videoId === "string"
+            ? {
+                videoId: videoMetadata.videoId,
+                chapters: Array.isArray(videoMetadata.chapters)
+                  ? videoMetadata.chapters as { timestamp: string; title: string }[]
+                  : [],
+              }
+            : undefined
+        }
         product={{
           name: allProductRaw.name,
           title,

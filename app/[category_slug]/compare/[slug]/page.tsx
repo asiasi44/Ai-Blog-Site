@@ -9,6 +9,7 @@ import ComparisonVoiceover from "@/models/ComparisonVoiceover";
 import "@/models/Category";
 import BackButton from "./BackButton";
 import YouTubeNewsletterPopup from "@/components/YouTubeNewsletterPopup";
+import ProductVideo from "@/components/ProductVideo";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -118,7 +119,7 @@ export default async function CompareProducts({
 }: {
   params: Promise<{ category_slug: string; slug: string }>;
 }) {
-  await dbConnect();
+  const mongooseConnection = await dbConnect();
   const { category_slug: categorySlug, slug } = await params;
   const [baseSlug, comparedSlug] = slug.split("--vs--", 2);
 
@@ -146,6 +147,24 @@ export default async function CompareProducts({
     const fallback = await getComparisonFallback(categorySlug, baseSlug);
     return <ComparisonMessage message="This comparison is not available yet." {...fallback} />;
   }
+
+  const metadataCollection = mongooseConnection.connection.db?.collection("comparison_metadatas");
+  const comparisonMatch = [
+    ...(comparisonData.comparison_id
+      ? [{ comparison_id: comparisonData.comparison_id }]
+      : []),
+    { base_asin: asinA, compared_asin: asinB },
+    { base_asin: asinB, compared_asin: asinA },
+  ];
+  const videoMetadata = metadataCollection
+    ? await metadataCollection.findOne(
+        {
+          $or: comparisonMatch,
+          videoId: { $type: "string", $ne: "" },
+        },
+        { projection: { videoId: 1, title: 1, chapters: 1 } },
+      )
+    : null;
 
   const comparison = comparisonData as unknown as ComparisonRecord;
   const analyses = await BlogAnalysis.find({ asin: { $in: [asinA, asinB] } })
@@ -207,6 +226,20 @@ export default async function CompareProducts({
             <WinnerSummary product={productB} links={linksB} side="B" />
           </div>
         </header>
+
+        {typeof videoMetadata?.videoId === "string" && (
+          <div className="mt-8">
+            <ProductVideo
+              videoId={videoMetadata.videoId}
+              title={
+                typeof videoMetadata.title === "string"
+                  ? videoMetadata.title
+                  : `${productA.name} vs ${productB.name} video comparison`
+              }
+              chapters={Array.isArray(videoMetadata.chapters) ? videoMetadata.chapters as { timestamp: string; title: string }[] : []}
+            />
+          </div>
+        )}
 
         <section className="mt-10 space-y-8">
           {sections.map((section, index) => (
