@@ -11,6 +11,7 @@ import BackButton from "./BackButton";
 import YouTubeNewsletterPopup from "@/components/YouTubeNewsletterPopup";
 import ProductVideo from "@/components/ProductVideo";
 import SimilarComparisons from "../SimilarComparisons";
+import FirefoxShoppingTip from "@/components/FirefoxShoppingTip";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -227,6 +228,12 @@ export default async function CompareProducts({
             <WinnerSummary product={productB} links={linksB} side="B" />
           </div>
         </header>
+
+        <div className="mt-3 flex justify-end">
+          <div className="max-w-lg">
+            <FirefoxShoppingTip />
+          </div>
+        </div>
 
         {typeof videoMetadata?.videoId === "string" && (
           <div className="mt-8">

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getAmazonLink } from "@/lib/functions/utils";
 import ProductVideo from "@/components/ProductVideo";
+import FirefoxShoppingTip from "@/components/FirefoxShoppingTip";
 
 type VideoChapter = {
   timestamp: string;
@@ -104,6 +105,7 @@ export default function BlogAnalysisComponent({
           >
             Check Price on Amazon ↗
           </Link>
+          <FirefoxShoppingTip />
         </div>
       </header>
 
