@@ -13,7 +13,7 @@ import ProductVideo from "@/components/ProductVideo";
 import SimilarComparisons from "../SimilarComparisons";
 import FirefoxShoppingTip from "@/components/FirefoxShoppingTip";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 export const dynamicParams = true;
 
 function formatProductName(slug: string) {

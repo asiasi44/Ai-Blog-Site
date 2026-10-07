@@ -11,7 +11,7 @@ import GeneratedArticle from "@/models/GeneratedArticle";
 import { notFound } from "next/navigation";
 import YouTubeNewsletterPopup from "@/components/YouTubeNewsletterPopup";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {

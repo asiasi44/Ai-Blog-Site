@@ -8,8 +8,8 @@ import { slugify } from "@/lib/functions/slugify";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-// Revalidate every 1 hour
-export const revalidate = 3600;
+// Revalidate every day
+export const revalidate = 86400;
 
 export const dynamicParams = true;
 

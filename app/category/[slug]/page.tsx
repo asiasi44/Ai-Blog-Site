@@ -4,7 +4,7 @@ import Category from "@/models/Category";
 import ProductBox from "./ProductBox/ProductBox";
 import Link from "next/link";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export async function generateStaticParams() {
   await dbConnect();
