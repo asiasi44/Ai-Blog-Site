@@ -9,7 +9,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 // Revalidate every day
-export const revalidate = 86400;
+export const revalidate = 604800;
 
 export const dynamicParams = true;
 

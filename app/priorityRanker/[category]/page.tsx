@@ -9,7 +9,7 @@ import { ArrowLeft } from "lucide-react";
 import { Metadata } from "next";
 import { capitalizeWords } from "@/lib/functions/capitalize";
 
-export const revalidate = 86400;
+export const revalidate = 604800;
 
 export async function generateStaticParams() {
   await dbConnect();
